@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>خطة ١٢ أسبوع — تنشيف الكرش والصدر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1419;--card:#171e26;--card2:#1e2731;--line:#2a3541;
+  --tx:#e9eef3;--mut:#93a1af;--acc:#ff7a2f;--acc2:#ffb347;
+  --str:#3fa7ff;--car:#2fd18b;--rest:#8a7dff;--act:#ffcb3f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.7;padding-bottom:60px}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#ff7a2f22,#3fa7ff18);border-bottom:1px solid var(--line);padding:34px 0 26px}
+h1{font-size:30px;font-weight:800;line-height:1.3}
+h1 span{color:var(--acc)}
+.sub{color:var(--mut);margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.stat b{display:block;font-size:22px;font-weight:800}
+.stat small{color:var(--mut)}
+section{margin-top:28px}
+h2{font-size:22px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.toolbar label{color:var(--mut);font-size:14px}
+input[type=date]{background:var(--card2);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-family:inherit}
+button{font-family:inherit;cursor:pointer}
+.btn{background:var(--acc);color:#1a0d04;border:0;border-radius:10px;padding:9px 16px;font-weight:700}
+.btn.ghost{background:var(--card2);color:var(--tx);border:1px solid var(--line)}
+.progress{margin-top:14px}
+.bar{height:10px;background:var(--card2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));width:0;transition:.4s}
+.progress small{color:var(--mut)}
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;font-size:14px}
+.phase b{display:block;font-size:15px}
+.phase.on{border-color:var(--acc);background:#ff7a2f12}
+.weeks{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.wk{background:var(--card2);border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:7px 12px;font-weight:700;min-width:46px}
+.wk.on{background:var(--acc);color:#1a0d04;border-color:var(--acc)}
+.wk.done{box-shadow:inset 0 -3px 0 var(--car)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 8px;text-align:center;cursor:pointer;position:relative;transition:.15s}
+.day:hover{transform:translateY(-2px)}
+.day.sel{border-color:var(--acc);background:#ff7a2f14}
+.day.today::after{content:"اليوم";position:absolute;top:-9px;right:50%;transform:translateX(50%);background:var(--acc);color:#1a0d04;font-size:11px;font-weight:800;padding:0 8px;border-radius:99px}
+.day .n{font-size:12px;color:var(--mut)}
+.day .t{font-weight:700;font-size:13px;margin-top:4px;line-height:1.4}
+.day .dot{width:10px;height:10px;border-radius:50%;margin:6px auto 0}
+.day.ok{opacity:.65}
+.day.ok .n::before{content:"✓ ";color:var(--car);font-weight:800}
+.strength .dot{background:var(--str)}.cardio .dot{background:var(--car)}.rest .dot{background:var(--rest)}.active .dot{background:var(--act)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--mut)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:5px;vertical-align:middle}
+.lg-s::before{background:var(--str)}.lg-c::before{background:var(--car)}.lg-a::before{background:var(--act)}.lg-r::before{background:var(--rest)}
+#detail{margin-top:16px}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.dh h3{font-size:21px;font-weight:800}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;margin-left:6px}
+.tag.strength{background:#3fa7ff22;color:var(--str)}.tag.cardio{background:#2fd18b22;color:var(--car)}.tag.rest{background:#8a7dff22;color:var(--rest)}.tag.active{background:#ffcb3f22;color:var(--act)}
+.note{background:var(--card2);border-radius:12px;padding:10px 14px;color:var(--mut);font-size:14px;margin-bottom:12px}
+.ex{display:grid;grid-template-columns:78px 1fr auto;gap:10px;align-items:center;padding:12px 4px;border-bottom:1px dashed var(--line)}
+.ex:last-child{border:0}
+.ex .i{width:30px;height:30px;border-radius:9px;background:var(--card2);display:grid;place-items:center;font-weight:800;color:var(--acc)}
+.ex .nm{font-weight:700}
+.ex .en{font-size:12px;color:var(--mut);direction:ltr;display:inline-block}
+.ex .tip{font-size:13px;color:var(--mut)}
+.ex .sr{background:var(--card2);border-radius:10px;padding:4px 10px;font-weight:800;white-space:nowrap;font-size:14px}
+.blk{font-size:13px;font-weight:800;color:var(--acc2);margin:14px 0 2px}
+.donebtn{margin-top:14px;width:100%;padding:12px;font-size:16px}
+.donebtn.is{background:var(--car)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ul.l{padding-right:18px}
+ul.l li{margin:4px 0}
+.warn{border-color:#ffcb3f55;background:#ffcb3f0d}
+.foot{color:var(--mut);font-size:13px;margin-top:30px;text-align:center}
+@media(max-width:720px){
+  .days{grid-template-columns:repeat(4,1fr)}
+  .phases,.grid2{grid-template-columns:1fr}
+  h1{font-size:24px}
+}
+.pic{width:74px;height:74px;background:#fff;border-radius:14px;padding:6px}
+.pic path{fill:none;stroke:#1d2733;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.pic .eq{stroke:#ff7a2f;stroke-width:2.6}
+.pic .hd{fill:#1d2733}
+.num{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--acc);color:#1a0d04;font-size:13px;margin-left:4px}
+.yt{display:inline-block;margin-top:4px;font-size:13px;color:var(--acc2);text-decoration:none;border:1px solid #ffb34755;border-radius:8px;padding:1px 8px}
+.ex .sr{text-align:center;line-height:1.4}.ex .sr small{display:block;font-weight:500;color:var(--mut);font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{padding:8px;border-bottom:1px solid var(--line);text-align:right}
+th{color:var(--acc2);font-weight:800}
+.big{font-size:34px;font-weight:800;color:var(--acc)}
+@media(max-width:720px){.ex{grid-template-columns:62px 1fr}.pic{width:58px;height:58px}.ex .sr{grid-column:2;justify-self:start;text-align:right}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+  <h1>خطة <span>١٢ أسبوع</span> للمبتدئ 💪</h1>
+  <p class="sub">هدفها: تنزيل الدهون (خصوصًا الكرش والصدر)، بناء عضل، وتعويد الجسم على النادي خطوة بخطوة.</p>
+  <div class="stats">
+    <div class="stat"><b>81 كجم</b><small>الوزن الحالي</small></div>
+    <div class="stat"><b>165 سم</b><small>الطول</small></div>
+    <div class="stat"><b>29.8</b><small>مؤشر كتلة الجسم</small></div>
+    <div class="stat"><b>−6 إلى −9</b><small>كجم هدف واقعي بـ٣ شهور</small></div>
+  </div>
+</div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <div class="card">
+    <div class="toolbar">
+      <div><label>تاريخ أول يوم في الخطة: </label><input type="date" id="start"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" id="goToday">روح لليوم</button>
+        <button class="btn ghost" id="reset">تصفير التقدم</button>
+      </div>
+    </div>
+    <div class="progress">
+      <div style="display:flex;justify-content:space-between"><small id="ptxt"></small><small id="ppct"></small></div>
+      <div class="bar"><i id="pbar"></i></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>الجدول اليومي</h2>
+  <div class="phases" id="phases"></div>
+  <div class="weeks" id="weeks"></div>
+  <div class="days" id="days"></div>
+  <div class="legend"><span class="lg-s">حديد</span><span class="lg-c">كارديو</span><span class="lg-a">استشفاء نشِط</span><span class="lg-r">راحة</span></div>
+  <div class="card" id="detail"></div>
+</section>
+
+<section>
+  <h2>دليل المبتدئ: يعني إيش جولة وعدّة؟</h2>
+  <div class="card">
+    <table>
+      <tr><th>الكلمة</th><th>معناها</th></tr>
+      <tr><td><b>العدّة</b></td><td>مرة وحدة تسوي فيها الحركة كاملة (نزول + طلوع).</td></tr>
+      <tr><td><b>الجولة</b></td><td>مجموعة عدّات ورا بعض بدون توقف. مثلًا «٣ جولات × ١٢ عدّة» = تسوي ١٢ مرة، ترتاح، وتعيدها ٣ مرات.</td></tr>
+      <tr><td><b>الراحة</b></td><td>٦٠–٩٠ ثانية بين الجولات، ودقيقتين بين كل تمرين والثاني.</td></tr>
+      <tr><td><b>السرعة</b></td><td>نزول بطيء (٢–٣ ثواني)، طلوع طبيعي (ثانية). لا تستخدم المرجحة.</td></tr>
+      <tr><td><b>التنفس</b></td><td>شهيق وأنت تنزل الوزن، زفير وأنت تدفعه أو تسحبه.</td></tr>
+      <tr><td><b>مدة التمرين</b></td><td>٤٥–٦٠ دقيقة شامل الإحماء والكارديو.</td></tr>
+      <tr><td><b>أول أسبوعين</b></td><td>طبيعي يحس بألم عضلي يوم أو يومين بعد التمرين — هذا مو إصابة، يخف مع الوقت.</td></tr>
+    </table>
+    <div class="note" style="margin-top:12px">الأسبوع الأول جولتين بس لكل تمرين، وبعدها ٣ جولات. المرحلة ٢ و٣ تزيد تدريجيًا — كل شيء مكتوب داخل كل يوم.</div>
+  </div>
+</section>
+
+<section>
+  <h2>البروتين: كم يحتاج بالضبط؟</h2>
+  <div class="grid2">
+    <div class="card" style="text-align:center">
+      <div class="big">130 جرام</div>
+      <div style="color:var(--mut)">باليوم تقريبًا (١.٦ جرام × وزنه ٨١)</div>
+      <div style="margin-top:10px">يعني <b>٣٠–٣٥ جرام بكل وجبة</b> × ٤ وجبات</div>
+      <div class="note" style="margin-top:12px;text-align:right">البروتين يحافظ على العضل وقت التنشيف، ويشبّع أكثر، فيخلي الالتزام بالسعرات أسهل.</div>
+    </div>
+    <div class="card">
+      <table>
+        <tr><th>الأكل</th><th>البروتين</th></tr>
+        <tr><td>صدر دجاج مطبوخ ١٥٠ جم (كف اليد)</td><td>٤٥ جم</td></tr>
+        <tr><td>لحم أو ستيك قليل الدهن ١٥٠ جم</td><td>٣٨ جم</td></tr>
+        <tr><td>سمك / هامور ١٥٠ جم</td><td>٣٥ جم</td></tr>
+        <tr><td>علبة تونة بالماء</td><td>٢٥ جم</td></tr>
+        <tr><td>٣ بيضات</td><td>١٨ جم</td></tr>
+        <tr><td>زبادي يوناني ١٧٠ جم</td><td>١٧ جم</td></tr>
+        <tr><td>كوب لبن قليل الدسم</td><td>٨ جم</td></tr>
+        <tr><td>سكوب واي بروتين (اختياري)</td><td>٢٤ جم</td></tr>
+        <tr><td>حمص / فول كوب</td><td>١٤ جم</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <b>مثال يوم كامل (~١٣٠ جم بروتين، ~٢٠٠٠ سعرة):</b>
+    <ul class="l">
+      <li><b>الفطور:</b> ٣ بيضات + خبزة بر + خيار وطماطم ← ٢٢ جم</li>
+      <li><b>الغداء:</b> ١٥٠ جم دجاج مشوي + ربع صحن رز (قبضة) + سلطة كبيرة ← ٤٨ جم</li>
+      <li><b>بعد التمرين / العصر:</b> زبادي يوناني + حبتين تمر أو موزة ← ١٧ جم</li>
+      <li><b>العشاء:</b> علبة تونة أو ١٥٠ جم لحم/سمك + خضار + خبزة صغيرة ← ٣٠–٣٨ جم</li>
+      <li><b>سناك:</b> كوب لبن أو حفنة لوز ← ٨ جم</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>قواعد الإحماء والإطالة</h2>
+  <div class="card">
+    <ul class="l">
+      <li>الإحماء والإطالة مكتوبة داخل كل يوم، وتتغير حسب العضلات اللي بيشتغل عليها.</li>
+      <li><b>الإحماء:</b> حركات متحركة (مو ثابتة) — الهدف تدفّي العضلات والمفاصل.</li>
+      <li>أول تمرين حديد: جولة خفيفة جدًا (نص الوزن) قبل الجولات الحقيقية.</li>
+      <li><b>الإطالة بعد التمرين:</b> ثابتة ٢٠–٣٠ ثانية، يحس بشد خفيف مو ألم، ويتنفس بهدوء.</li>
+      <li>لا يسوي إطالة ثابتة طويلة قبل الحديد — تضعف قوة العضلة مؤقتًا.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>كيف يختار الوزن ويتطور</h2>
+  <div class="grid2">
+    <div class="card">
+      <ul class="l">
+        <li>الوزن الصح: آخر ٢–٣ عدّات صعبة بس يقدر يكملها بأداء نظيف.</li>
+        <li>إذا كمّل أعلى عدد عدّات بكل الجولات ← يزيد الوزن شوي الأسبوع الجاي.</li>
+        <li>النزول ببطء (٢–٣ ثواني) أهم من الوزن الثقيل.</li>
+        <li>الراحة بين الجولات: ٦٠–٩٠ ثانية.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <ul class="l">
+        <li>إذا ما يعرف جهاز، يسأل المدرب بالنادي يوريه الأداء أول مرة.</li>
+        <li>أي ألم حاد بالمفصل = يوقف التمرين ويبدّله.</li>
+        <li>يصوّر نفسه ويقيس محيط البطن كل أسبوعين (نفس الوقت، الصبح).</li>
+        <li>الوزن يتذبذب يوميًا — العبرة بمتوسط الأسبوع.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>الأكل — هنا ٧٠٪ من النتيجة</h2>
+  <div class="grid2">
+    <div class="card">
+      <b>تقريبًا يوميًا:</b>
+      <ul class="l">
+        <li>سعرات: حوالي <b>1900–2100</b> سعرة (تقدير؛ إذا ما نزل وزنه بأسبوعين ينقص ١٥٠–٢٠٠).</li>
+        <li>بروتين: حوالي <b>130 جرام</b> (التفاصيل فوق).</li>
+        <li>ماء: ٢.٥–٣ لتر.</li>
+        <li>خطوات: ٨٠٠٠+ يوميًا حتى أيام الراحة.</li>
+        <li>نوم: ٧–٨ ساعات (قلة النوم ترفع الجوع وتثبّت الكرش).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b>قواعد بسيطة:</b>
+      <ul class="l">
+        <li>نص الصحن خضار، ربع بروتين، ربع رز/خبز (قبضة يد).</li>
+        <li>قلّل المشروبات المحلّاة والعصائر — أسهل ٣٠٠ سعرة تنحذف.</li>
+        <li>الشاي والقهوة بدون سكر أو بسكر أقل تدريجيًا.</li>
+        <li>التمر: ٣ حبات باليوم كفاية.</li>
+        <li>وجبة مفتوحة مرة بالأسبوع عادي، بس مو يوم كامل.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>ملاحظات مهمة</h2>
+  <div class="card warn">
+    <ul class="l">
+      <li><b>الكرش والصدر:</b> ما فيه تمرين يحرق دهون منطقة معيّنة. الدهون تنزل من الجسم كله مع العجز بالسعرات، وتمارين الصدر والظهر تشد المنطقة وتعطي شكل أحسن تحت الدهون.</li>
+      <li><b>التثدي:</b> إذا كان سببه دهون فينزل مع نزول الوزن. لكن إذا فيه كتلة قاسية أو مطاطية تحت الحلمة، أو ألم، أو بجهة وحدة بس — الأفضل يراجع طبيب (باطنية أو غدد) لأنه أحيانًا يكون نسيج غُدّي ما يروح بالتمارين.</li>
+      <li>إذا عنده ضغط، سكر، مشاكل قلب أو مفاصل، يستشير الطبيب قبل يبدأ الكارديو العالي (HIIT).</li>
+    </ul>
+  </div>
+</section>
+
+<p class="foot">التقدّم يتحفظ على هذا الجهاز والمتصفح فقط.</p>
+</div>
+
+<script>
+// ---------- مكتبة التمارين ----------
+const P={
+ chest:[["ضغط صدر جهاز","Chest Press Machine","ظهرك ملتصق بالمسند، انزل ببطء"],["ضغط دمبل مستوي","Dumbbell Bench Press","الأكواع ٤٥° من الجسم، لا تفتحها كثير"],["ضغط بار مستوي","Barbell Bench Press","ابدأ خفيف، ولوحك ثابت والقدمين على الأرض"]],
+ incl:[["ضغط دمبل مائل","Incline DB Press","زاوية الكرسي ٣٠° — يشد أعلى الصدر"],["ضغط مائل جهاز","Incline Chest Press Machine","ادفع للأعلى والأمام، لا تقفل الكوع"],["ضغط مائل سميث","Incline Smith Press","البار ينزل على أعلى الصدر"]],
+ fly:[["تفتيح جهاز","Pec Deck","ضم اليدين وعصّر الصدر ثانية"],["كيبل كروس من تحت لفوق","Low-to-High Cable Fly","مثالي لشد أعلى الصدر"],["تفتيح دمبل","Dumbbell Fly","انحناء خفيف بالكوع، نزول متحكم"]],
+ push:[["ضغط على الكرسي (مائل)","Incline Push-ups","يدينك على كرسي — أسهل للمبتدئ"],["ضغط أرضي","Push-ups","الجسم خط مستقيم من الرأس للكعب"],["متوازي بمساعدة","Assisted Dips","مِل للأمام شوي ليشتغل الصدر"]],
+ backV:[["سحب أمامي","Lat Pulldown","اسحب للصدر العلوي وأكواعك للأسفل"],["عقلة بمساعدة","Assisted Pull-up","استخدم جهاز المساعدة أو مطاط"],["سحب أمامي قبضة ضيقة","Close-grip Pulldown","صدرك لفوق والكتف لتحت"]],
+ backH:[["تجديف كيبل جالس","Seated Cable Row","ظهرك مستقيم، اسحب للسرة"],["تجديف دمبل بيد واحدة","One-arm DB Row","اسند يدك وركبتك على الكرسي"],["تجديف جهاز","Machine Row","عصّر لوحي الكتف لبعض"]],
+ face:[["فيس بول","Face Pull","اسحب الحبل للوجه — ممتاز للقوام"],["خلفي كتف جهاز","Reverse Pec Deck","حركة صغيرة متحكم فيها"]],
+ squat:[["سكوات جوبلت","Goblet Squat","دمبل عند الصدر، انزل كأنك تجلس على كرسي"],["ليق برس","Leg Press","الركبة باتجاه أصابع القدم"],["سكوات سميث","Smith Squat","القدمين أمام البار شوي"]],
+ hinge:[["رفعة رومانية دمبل","DB Romanian Deadlift","ادفع الحوض للخلف وظهرك مستقيم"],["هيب ثرست","Hip Thrust","عصّر المؤخرة فوق ثانية"],["تمديد ظهر","Back Extension","لا تفرط في التقوس فوق"]],
+ lunge:[["لنجز ماشي","Walking Lunges","خطوة واسعة والجذع مستقيم"],["صعود على صندوق","Step-ups","ادفع بالرجل اللي فوق"],["سكوات بلغاري","Bulgarian Split Squat","رجل خلفية على الكرسي، ابدأ بدون وزن"]],
+ lcurl:[["ليق كيرل منبطح","Lying Leg Curl","نزول بطيء"],["ليق كيرل جالس","Seated Leg Curl","اثبت على الكرسي"]],
+ lext:[["ليق اكستنشن","Leg Extension","توقف ثانية فوق"]],
+ calf:[["سمانة واقف","Standing Calf Raise","مدى حركة كامل"],["سمانة جالس","Seated Calf Raise","توقف تحت ثانية"]],
+ sh:[["ضغط أكتاف دمبل جالس","Seated DB Shoulder Press","لا تقوّس أسفل الظهر"],["ضغط أكتاف جهاز","Machine Shoulder Press","انزل لمستوى الأذن"]],
+ lat:[["رفرفة جانبي دمبل","DB Lateral Raise","وزن خفيف، الكوع يقود الحركة"],["رفرفة جانبي كيبل","Cable Lateral Raise","شد مستمر على الكتف"]],
+ bi:[["بايسبس دمبل","DB Curl","بدون مرجحة"],["هامر","Hammer Curl","قبضة محايدة"],["بايسبس كيبل","Cable Curl","عصّر فوق"]],
+ tri:[["ترايسبس كيبل حبل","Rope Pushdown","الكوع ثابت جنب الجسم"],["ترايسبس دمبل فوق الرأس","Overhead DB Extension","انزل ببطء ورا الرأس"]],
+ core1:[["بلانك","Plank","البطن مشدود والحوض لا يطيح"],["ديد بق","Dead Bug","أسفل الظهر ملتصق بالأرض"],["بيرد دوق","Bird Dog","حركة بطيئة وثابتة"]],
+ core2:[["رفع رجلين مستلقي","Lying Leg Raise","يديك تحت الحوض"],["كرنش كيبل","Cable Crunch","اثني الظهر مو الحوض"],["بلانك جانبي","Side Plank","كل جهة"],["ماونتن كلايمبر","Mountain Climbers","سرعة متوسطة"]]
+};
+
+// ---------- رسومات التمارين (SVG) ----------
+const L=(a)=>a.map(c=>`<path d="${c}"/>`).join("");
+const H=(x,y)=>`<circle cx="${x}" cy="${y}" r="4.5" class="hd"/>`;
+const EQ=(d)=>`<path d="${d}" class="eq"/>`;
+const ICON={
+ bench:H(12,36)+EQ("M8 44H46M14 44V52M42 44V52")+L(["M17 38H36","M36 38L44 46L44 54","M24 38L22 30L26 22","M30 38L32 30L28 22"])+EQ("M14 21H40M14 17V25M40 17V25"),
+ incline:H(16,22)+EQ("M10 50L22 26M18 50H50M46 40V52")+L(["M18 27L26 42","M26 42L40 42L42 54","M20 31L26 24L34 16","M22 33L30 26L36 18"])+EQ("M26 12L44 22"),
+ push:H(10,30)+L(["M14 32L50 42","M18 33V46","M24 35V46"])+EQ("M4 48H56"),
+ fly:H(30,12)+EQ("M22 54H38M30 54V44")+L(["M30 17V36","M30 36L24 44M30 36L36 44","M30 22L18 20L10 24","M30 22L42 20L50 24"])+EQ("M8 22v6M52 22v6"),
+ pulldown:H(30,24)+EQ("M10 10H50M30 10V2M22 44H44M44 44V54")+L(["M30 29V42","M30 42H42V52","M30 31L20 22L16 10","M30 31L40 22L44 10"]),
+ row:H(16,20)+EQ("M10 46H32M52 22V48")+L(["M17 25L20 40","M20 40H40L44 46","M18 29L30 31L40 31"])+EQ("M40 31H52"),
+ squat:H(30,10)+L(["M30 15L26 30","M26 30L38 34","M38 34L36 48","M26 30L22 36L30 48","M28 20L34 23L28 26"])+EQ("M32 20h6v6h-6zM16 50H46"),
+ hinge:H(14,20)+L(["M18 23L38 30","M38 30L38 52","M38 30L34 52","M24 25L24 40"])+EQ("M18 42H30M18 40V44M30 40V44M10 54H48"),
+ lunge:H(30,8)+L(["M30 13V30","M30 30L42 38L42 52","M30 30L20 42L10 50","M30 17L24 30","M30 17L36 30"])+EQ("M22 30h4v6h-4zM34 30h4v6h-4zM4 54H54"),
+ legm:H(20,16)+EQ("M14 40H34M14 40V20M34 40V52")+L(["M20 21L18 38","M18 38H36","M36 38L52 34","M18 26L28 34"])+EQ("M50 30v8"),
+ calf:H(30,6)+L(["M30 11V30","M30 30L28 46L30 50","M30 30L32 46L34 50","M30 15L22 26","M30 15L38 26"])+EQ("M22 50H42V56H22z"),
+ press:H(30,18)+EQ("M22 54H38M30 54V44")+L(["M30 23V40","M30 40L24 50M30 40L36 50","M30 26L20 22L18 10","M30 26L40 22L42 10"])+EQ("M12 8H24M36 8H48"),
+ lateral:H(30,10)+L(["M30 15V34","M30 34L26 52M30 34L34 52","M30 19L46 20","M30 19L14 20"])+EQ("M10 17v6M50 17v6"),
+ curl:H(26,10)+L(["M26 15V34","M26 34L22 52M26 34L30 52","M26 19L30 32L40 24"])+EQ("M38 19v10M42 19v10"),
+ tri:H(24,12)+EQ("M42 2V22")+L(["M24 17V36","M24 36L20 52M24 36L28 52","M24 21L32 28L40 34"])+EQ("M40 34L42 22"),
+ plank:H(10,32)+L(["M14 34L50 42","M16 35L16 46","M16 46H24"])+EQ("M4 48H56"),
+ legraise:H(10,44)+L(["M14 45H34","M34 45L44 22"])+EQ("M4 50H56"),
+ walk:H(24,10)+L(["M24 15L26 32","M26 32L20 46","M26 32L34 44","M25 20L18 28","M25 20L32 26"])+EQ("M6 50H50L54 40M50 50V54"),
+ bike:H(28,10)+L(["M28 15L22 30","M22 30L34 30L32 42","M27 19L40 22"])+EQ("M18 30H26M40 20v4M22 34L26 52H38M34 52a4 4 0 1 0 0.1 0"),
+ stretch:H(30,10)+L(["M30 15V34","M30 19L20 4","M30 19L40 4","M30 34L20 52","M30 34L40 52"])
+};
+const KI={chest:"bench",incl:"incline",fly:"fly",push:"push",backV:"pulldown",backH:"row",face:"row",squat:"squat",hinge:"hinge",lunge:"lunge",lcurl:"legm",lext:"legm",calf:"calf",sh:"press",lat:"lateral",bi:"curl",tri:"tri",core1:"plank",core2:"legraise"};
+
+Object.assign(ICON,{
+ armc:H(30,10)+L(["M30 15V34","M30 34L26 52M30 34L34 52","M30 19L42 10","M30 19L18 28"])+EQ("M38 4a10 10 0 1 1 10 10M10 30a8 8 0 0 0 8 6"),
+ doorway:H(26,10)+EQ("M44 2V56")+L(["M26 15V34","M26 34L22 52M26 34L30 52","M26 19L44 18","M44 18L44 8"]),
+ quad:H(30,8)+L(["M30 13V32","M30 32L30 52","M30 32L36 44L28 46","M30 18L28 40"])+EQ("M20 54H40"),
+ hams:H(14,26)+L(["M17 29L30 40","M30 40L52 44","M30 40L28 52","M20 30L44 42"])+EQ("M4 54H56"),
+ child:H(12,42)+L(["M16 42L34 36","M34 36L44 46","M44 46L32 48","M16 42L4 44"])+EQ("M2 50H58"),
+ cat:H(10,30)+L(["M14 32Q30 18 44 30","M14 32V46","M44 30V46"])+EQ("M4 48H56"),
+ hipflex:H(28,8)+L(["M28 13V32","M28 32L42 36L42 50","M28 32L20 44L10 46"])+EQ("M4 52H54"),
+ swing:H(30,8)+L(["M30 13V32","M30 32L44 26","M30 32L30 52","M30 17L22 28","M30 17L38 28"])+EQ("M16 54H44"),
+ cobra:H(14,24)+L(["M16 29L22 40L52 46","M18 32V44"])+EQ("M4 48H56")
+});
+function warm(focus){
+  const base=[{e:["مشي سريع أو دراجة","Treadmill / Bike","يرفع حرارة الجسم ونبض القلب تدريجيًا"],sr:"٥ دقايق",k:focus==="lower"?"bike":"walk"}];
+  const up=[{e:["تدوير الأذرع","Arm Circles","دواير صغيرة وبعدين كبيرة، للأمام وللخلف"],sr:"١٥ لكل اتجاه",k:"armc"},
+            {e:["فتح الصدر على الجدار","Wall Chest Opener","يدك على الجدار ولف جسمك بالعكس بهدوء"],sr:"٢٠ ث لكل جهة",k:"doorway"},
+            {e:["ضغط على الجدار","Wall Push-ups","يجهّز الصدر والأكتاف للحديد"],sr:"١٥ مرة",k:"push"},
+            {e:["سحب مطاط/كيبل خفيف","Band Pull-aparts","وزن خفيف جدًا، عصّر لوحي الكتف"],sr:"١٥ مرة",k:"row"}];
+  const lo=[{e:["أرجحة الرجل","Leg Swings","امسك شيء ثابت، أرجح الرجل أمام وخلف"],sr:"١٢ لكل رجل",k:"swing"},
+            {e:["سكوات بوزن الجسم","Bodyweight Squat","بدون وزن، مدى حركة كامل"],sr:"١٥ مرة",k:"squat"},
+            {e:["لنجز بدون وزن","Bodyweight Lunges","خطوة واسعة ببطء"],sr:"٨ لكل رجل",k:"lunge"},
+            {e:["جسر الحوض","Glute Bridge","استلقِ وارفع الحوض وعصّر المؤخرة"],sr:"١٥ مرة",k:"legraise"}];
+  const card=[{e:["أرجحة الرجل","Leg Swings","أمام وخلف وجانبي"],sr:"١٠ لكل رجل",k:"swing"},
+              {e:["تدوير الأذرع","Arm Circles","للأمام وللخلف"],sr:"١٠ لكل اتجاه",k:"armc"}];
+  if(focus==="upper")return base.concat(up);
+  if(focus==="lower")return base.concat(lo);
+  if(focus==="cardio")return [{e:["مشي هادي","Easy Walk","ابدأ بطيء ٣ دقايق قبل ما تسرّع"],sr:"٣ دقايق",k:"walk"}].concat(card);
+  return base.concat([up[0],up[1],lo[1],lo[0]]);
+}
+function cool(focus){
+  const up=[{e:["إطالة الصدر على الباب","Doorway Chest Stretch","الكوع بمستوى الكتف، اتقدم خطوة لين تحس بشد"],sr:"٣٠ ث لكل جهة",k:"doorway"},
+            {e:["وضعية الطفل","Child's Pose","مد يدينك للأمام وريّح الظهر"],sr:"٤٠ ث",k:"child"},
+            {e:["إطالة الترايسبس","Triceps Stretch","يدك ورا رأسك واسحب الكوع بالثانية"],sr:"٢٠ ث لكل جهة",k:"tri"},
+            {e:["القطة والجمل","Cat-Cow","قوّس الظهر ثم انزله ببطء مع التنفس"],sr:"١٠ مرات",k:"cat"}];
+  const lo=[{e:["إطالة الفخذ الأمامي","Quad Stretch","امسك قدمك ورا، الركبتين جنب بعض"],sr:"٣٠ ث لكل رجل",k:"quad"},
+            {e:["إطالة الفخذ الخلفي","Hamstring Stretch","اجلس ومد رجلك وانحني للأمام بظهر مستقيم"],sr:"٣٠ ث لكل رجل",k:"hams"},
+            {e:["إطالة مثنيات الحوض","Hip Flexor Stretch","وضعية لنج، ادفع الحوض للأمام بهدوء"],sr:"٣٠ ث لكل جهة",k:"hipflex"},
+            {e:["إطالة السمانة على الجدار","Calf Stretch","الكعب على الأرض والرجل الخلفية مستقيمة"],sr:"٣٠ ث لكل رجل",k:"calf"}];
+  const ab={e:["إطالة الكوبرا للبطن","Cobra Stretch","انبطح وارفع صدرك بيدينك بهدوء"],sr:"٣٠ ث",k:"cobra"};
+  const breathe={e:["تنفس عميق","Deep Breathing","شهيق ٤ ثواني، زفير ٦ ثواني — يهدّي النبض"],sr:"دقيقة",k:"child"};
+  if(focus==="upper")return up.concat([breathe]);
+  if(focus==="lower")return lo.concat([ab,breathe]);
+  if(focus==="cardio")return [lo[0],lo[1],lo[3],ab];
+  return [up[0],lo[0],lo[1],up[1],breathe];
+}
+function focusOf(d){
+  if(d.ty==="cardio")return "cardio";
+  if(/سفلي|أرجل/.test(d.t))return "lower";
+  if(/علوي|دفع|سحب/.test(d.t))return "upper";
+  return "full";
+}
+
+const svg=k=>`<svg viewBox="0 0 60 60" class="pic">${ICON[k]||ICON.stretch}</svg>`;
+
+// [مفتاح, إزاحة]
+const pick=(k,w,o=0)=>P[k][(w+o)%P[k].length];
+
+const PH=[
+ {name:"المرحلة ١: التأسيس",weeks:"الأسبوع ١–٤",desc:"٣ أيام حديد جسم كامل + مشي. تعلّم الأداء.",
+  sets:w=>w===0?"2 × 12–15":"3 × 12–15", cardio:w=>15+w*2},
+ {name:"المرحلة ٢: البناء",weeks:"الأسبوع ٥–٨",desc:"٤ أيام علوي/سفلي + كارديو متقطع.",
+  sets:w=>w<2?"3 × 10–12":"4 × 10–12", cardio:w=>20+w*2},
+ {name:"المرحلة ٣: التنشيف",weeks:"الأسبوع ٩–١٢",desc:"٥ أيام حديد + HIIT. أعلى حرق.",
+  sets:w=>"4 × 8–12", cardio:w=>25+w}
+];
+
+function srTxt(sr){
+  const m=sr.match(/^(\d+) × (.+)$/);
+  if(!m)return `<b>${sr}</b>`;
+  return `<b>${m[1]==="2"?"جولتين":AR(m[1])+" جولات"}</b><small>${m[2].replace(/\d+/g,d=>AR(d)).replace("أقصى عدد","أقصى عدد تقدر").replace(/ث$/," ثانية")} ${/ث|عدد|رجل/.test(m[2])?"":"عدّة"}</small>`;
+}
+function cardioTxt(min,kind){
+  if(kind==="hiit")return[["HIIT على الدراجة","Bike Intervals",`${Math.max(6,Math.round(min/2.5))} جولات: ٣٠ ث سريع جدًا + ٩٠ ث بطيء`]];
+  if(kind==="int")return[["مشي متقطع على السير","Treadmill Intervals",`${min} دقيقة: دقيقتين ميلان ١٠–١٢ + دقيقة ميلان ٢ — كررها`]];
+  return[["مشي سريع على السير بميلان","Incline Walk",`${min} دقيقة — ميلان ٨–١٢، سرعة ٤.٥–٥.٥، تقدر تتكلم بصعوبة`]];
+}
+
+// قوالب الأسبوع لكل مرحلة
+function weekPlan(ph,w){ // w: index within phase 0..3
+  const s=PH[ph].sets(w), c=PH[ph].cardio(w), cs="3 × 30–45 ث";
+  const ex=(k,o,sr)=>({e:pick(k,w,o),sr:sr||s,k:KI[k]});
+  const cardioBlock=(min,kind)=>cardioTxt(min,kind).map(e=>({e,sr:"كارديو",k:kind==="hiit"?"bike":"walk"}));
+  if(ph===0)return[
+   {t:"جسم كامل A",ty:"strength",b:[["حديد",[ex("squat",0),ex("chest",0),ex("backV",0),ex("hinge",0),ex("sh",0),ex("core1",0,cs)]],["كارديو بعد الحديد",cardioBlock(10)]]},
+   {t:"مشي",ty:"cardio",note:"مشي خارجي أو على السير — مريح ومستمر.",b:[["كارديو",cardioBlock(30+w*5)]]},
+   {t:"جسم كامل B",ty:"strength",b:[["حديد",[ex("squat",1),ex("incl",0),ex("backH",0),ex("lcurl",0),ex("lat",0),ex("core2",0,cs)]],["كارديو بعد الحديد",cardioBlock(10)]]},
+   {t:"راحة",ty:"rest"},
+   {t:"جسم كامل C",ty:"strength",b:[["حديد",[ex("lunge",0,"3 × 10 لكل رجل"),ex("push",0,"3 × أقصى عدد"),ex("backV",1),ex("hinge",1),ex("face",0),ex("core1",1,cs)]],["كارديو بعد الحديد",cardioBlock(10)]]},
+   {t:"كارديو + بطن",ty:"cardio",b:[["كارديو",cardioBlock(c)],["بطن",[ex("core1",2,cs),ex("core2",1,"3 × 12–15")]]]},
+   {t:"راحة",ty:"rest"}
+  ];
+  if(ph===1)return[
+   {t:"علوي A (صدر وظهر)",ty:"strength",b:[["حديد",[ex("chest",0),ex("backV",0),ex("incl",0),ex("backH",0),ex("sh",0),ex("tri",0,"3 × 12"),ex("bi",0,"3 × 12")]],["كارديو بعد الحديد",cardioBlock(15)]]},
+   {t:"سفلي A",ty:"strength",b:[["حديد",[ex("squat",0),ex("hinge",0),ex("lunge",0,"3 × 10 لكل رجل"),ex("lcurl",0),ex("calf",0,"3 × 15"),ex("core2",0,cs)]]]},
+   {t:"كارديو متقطع",ty:"cardio",b:[["كارديو",cardioBlock(c,"int")],["بطن",[ex("core1",0,cs)]]]},
+   {t:"راحة",ty:"rest"},
+   {t:"علوي B (تركيز صدر)",ty:"strength",b:[["حديد",[ex("incl",1),ex("backH",1),ex("fly",0,"3 × 12–15"),ex("backV",1),ex("lat",0,"3 × 12–15"),ex("face",0,"3 × 15"),ex("push",1,"2 × أقصى عدد")]],["كارديو بعد الحديد",cardioBlock(15)]]},
+   {t:"سفلي B + بطن",ty:"strength",b:[["حديد",[ex("squat",1),ex("hinge",1),ex("lext",0,"3 × 12–15"),ex("lcurl",1),ex("calf",1,"3 × 15")]],["بطن",[ex("core1",1,cs),ex("core2",1,"3 × 12–15")]]]},
+   {t:"راحة",ty:"rest"}
+  ];
+  return[
+   {t:"دفع (صدر/كتف/ترايسبس)",ty:"strength",b:[["حديد",[ex("chest",0),ex("incl",0),ex("fly",0,"3 × 12–15"),ex("sh",0),ex("lat",0,"3 × 15"),ex("tri",0,"3 × 12")]],["كارديو بعد الحديد",cardioBlock(15)]]},
+   {t:"سحب (ظهر/بايسبس)",ty:"strength",b:[["حديد",[ex("backV",0),ex("backH",0),ex("backH",1),ex("face",0,"3 × 15"),ex("bi",0,"3 × 12"),ex("bi",1,"3 × 12")]],["بطن",[ex("core2",0,cs)]]]},
+   {t:"أرجل",ty:"strength",b:[["حديد",[ex("squat",0),ex("hinge",0),ex("lunge",0,"3 × 10 لكل رجل"),ex("lcurl",0),ex("lext",0,"3 × 15"),ex("calf",0,"4 × 15")]]]},
+   {t:"استشفاء نشِط",ty:"active",note:"يوم خفيف: يحرّك الجسم بدون إجهاد.",b:[["حركة خفيفة",[{e:["مشي هادي","Easy Walk","٣٠–٤٠ دقيقة"],sr:"مشي",k:"walk"},{e:["إطالات شاملة","Full Body Stretch","١٠–١٥ دقيقة"],sr:"إطالة",k:"stretch"}]]]},
+   {t:"علوي (تركيز صدر)",ty:"strength",b:[["حديد",[ex("incl",1),ex("backH",2),ex("chest",1),ex("backV",1),ex("push",1,"3 × أقصى عدد"),ex("lat",1,"3 × 15")]],["كارديو بعد الحديد",cardioBlock(c)]]},
+   {t:"سفلي + HIIT",ty:"strength",b:[["حديد",[ex("squat",1),ex("hinge",1),ex("lcurl",1),ex("calf",1,"3 × 15")]],["HIIT",cardioBlock(c,"hiit")],["بطن",[ex("core1",1,cs),ex("core2",2,cs)]]]},
+   {t:"راحة",ty:"rest"}
+  ];
+}
+
+// ---------- الحالة ----------
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let done=LS.get("wp_done",{}), start=LS.get("wp_start",null);
+let selW=0, selD=0;
+const AR=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const DN=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+
+function dateOf(gi){if(!start)return null;const d=new Date(start+"T00:00:00");d.setDate(d.getDate()+gi);return d}
+function todayIdx(){if(!start)return -1;const t=new Date();t.setHours(0,0,0,0);const s=new Date(start+"T00:00:00");return Math.round((t-s)/864e5)}
+
+function render(){
+  const ph=Math.floor(selW/4);
+  document.getElementById("phases").innerHTML=PH.map((p,i)=>`<div class="phase ${i===ph?"on":""}"><b>${p.name}</b><small style="color:var(--acc2)">${p.weeks}</small><div style="color:var(--mut)">${p.desc}</div></div>`).join("");
+  document.getElementById("weeks").innerHTML=Array.from({length:12},(_,i)=>{
+    const all=[0,1,2,3,4,5,6].every(d=>done[i*7+d]||weekPlan(Math.floor(i/4),i%4)[d].ty==="rest");
+    return `<button class="wk ${i===selW?"on":""} ${all?"done":""}" data-w="${i}">أ${AR(i+1)}</button>`}).join("");
+  const plan=weekPlan(ph,selW%4), ti=todayIdx();
+  document.getElementById("days").innerHTML=plan.map((d,i)=>{
+    const gi=selW*7+i, dt=dateOf(gi);
+    const lbl=dt?`${DN[dt.getDay()]} ${AR(dt.getDate())}/${AR(dt.getMonth()+1)}`:`اليوم ${AR(gi+1)}`;
+    return `<div class="day ${d.ty} ${i===selD?"sel":""} ${gi===ti?"today":""} ${done[gi]?"ok":""}" data-d="${i}"><div class="n">${lbl}</div><div class="t">${d.t}</div><div class="dot"></div></div>`}).join("");
+  renderDetail(plan[selD], selW*7+selD);
+  // progress
+  let tot=0,c=0;for(let w=0;w<12;w++)weekPlan(Math.floor(w/4),w%4).forEach((d,i)=>{if(d.ty!=="rest"){tot++;if(done[w*7+i])c++}});
+  document.getElementById("pbar").style.width=(c/tot*100)+"%";
+  document.getElementById("ptxt").textContent=`أنجز ${AR(c)} من ${AR(tot)} يوم تمرين`;
+  document.getElementById("ppct").textContent=AR(Math.round(c/tot*100))+"٪";
+}
+
+const TY={strength:"حديد",cardio:"كارديو",rest:"راحة",active:"استشفاء"};
+function renderDetail(d,gi){
+  const dt=dateOf(gi);
+  let h=`<div class="dh"><div><span class="tag ${d.ty}">${TY[d.ty]}</span><small style="color:var(--mut)">الأسبوع ${AR(selW+1)} · اليوم ${AR(gi+1)} من ٨٤${dt?" · "+dt.toLocaleDateString("ar-SA-u-ca-gregory",{weekday:"long",day:"numeric",month:"long"}):""}</small><h3>${d.t}</h3></div></div>`;
+  if(d.ty==="rest"){
+    h+=`<div class="note">😴 يوم راحة كامل. العضلات تنبني وقت الراحة مو وقت التمرين.</div>
+    <ul class="l"><li>مشي خفيف عادي (هدف الخطوات ٨٠٠٠).</li><li>نوم كويس، أكل بروتين، ماء.</li><li>إطالة خفيفة ١٠ دقايق إذا فيه شد.</li></ul>`;
+  }else{
+    if(d.note)h+=`<div class="note">${d.note}</div>`;
+    if(d.ty==="strength")h+=`<div class="note">ابدأ بالإحماء، بعدها الحديد (الراحة بين الجولات ٦٠–٩٠ ثانية)، واختم بالإطالة. لا تتخطى الإحماء — يحميك من الإصابة.</div>`;
+    let n=0;
+    const blocks=d.ty==="active"?d.b:[["🔥 إحماء قبل التمرين (٨ دقايق تقريبًا)",warm(focusOf(d))],...d.b,["🧘 إطالة بعد التمرين (٥–٨ دقايق)",cool(focusOf(d))]];
+    blocks.forEach(([title,list])=>{
+      h+=`<div class="blk">${title}</div>`;
+      list.forEach(x=>{n++;const yt="https://www.youtube.com/results?search_query="+encodeURIComponent(x.e[1]+" proper form beginner");
+        h+=`<div class="ex">${svg(x.k)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div><a class="yt" href="${yt}" target="_blank" rel="noopener">▶ شوف طريقة الأداء بالفيديو</a></div><div class="sr">${srTxt(x.sr)}</div></div>`});
+    });
+    h+=`<button class="btn donebtn ${done[gi]?"is":""}" id="mark">${done[gi]?"✓ خلّصته — اضغط للتراجع":"خلّصت تمرين اليوم"}</button>`;
+  }
+  const el=document.getElementById("detail");el.innerHTML=h;
+  const m=document.getElementById("mark");
+  if(m)m.onclick=()=>{done[gi]?delete done[gi]:done[gi]=1;LS.set("wp_done",done);render()};
+}
+
+function goToday(){const t=todayIdx();if(t>=0&&t<84){selW=Math.floor(t/7);selD=t%7}else{selW=0;selD=0}render();document.getElementById("days").scrollIntoView({behavior:"smooth",block:"center"})}
+
+document.getElementById("weeks").onclick=e=>{const b=e.target.closest(".wk");if(b){selW=+b.dataset.w;selD=0;render()}};
+document.getElementById("days").onclick=e=>{const b=e.target.closest(".day");if(b){selD=+b.dataset.d;render()}};
+const si=document.getElementById("start");
+if(start)si.value=start;
+si.onchange=()=>{start=si.value||null;LS.set("wp_start",start);goToday()};
+document.getElementById("goToday").onclick=goToday;
+let rc=0;document.getElementById("reset").onclick=e=>{if(rc===0){rc=1;e.target.textContent="متأكد؟ اضغط مرة ثانية";setTimeout(()=>{rc=0;e.target.textContent="تصفير التقدم"},3000)}else{done={};LS.set("wp_done",done);rc=0;e.target.textContent="تصفير التقدم";render()}};
+const t0=todayIdx();if(t0>=0&&t0<84){selW=Math.floor(t0/7);selD=t0%7}
+render();
+</script>
+</body>
+</html>
