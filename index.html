@@ -65,7 +65,7 @@ button{font-family:inherit;cursor:pointer}
 .tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;margin-left:6px}
 .tag.strength{background:#3fa7ff22;color:var(--str)}.tag.cardio{background:#2fd18b22;color:var(--car)}.tag.rest{background:#8a7dff22;color:var(--rest)}.tag.active{background:#ffcb3f22;color:var(--act)}
 .note{background:var(--card2);border-radius:12px;padding:10px 14px;color:var(--mut);font-size:14px;margin-bottom:12px}
-.ex{display:grid;grid-template-columns:78px 1fr auto;gap:10px;align-items:center;padding:12px 4px;border-bottom:1px dashed var(--line)}
+.ex{display:grid;grid-template-columns:118px 1fr auto;gap:10px;align-items:center;padding:12px 4px;border-bottom:1px dashed var(--line)}
 .ex:last-child{border:0}
 .ex .i{width:30px;height:30px;border-radius:9px;background:var(--card2);display:grid;place-items:center;font-weight:800;color:var(--acc)}
 .ex .nm{font-weight:700}
@@ -97,6 +97,26 @@ td,th{padding:8px;border-bottom:1px solid var(--line);text-align:right}
 th{color:var(--acc2);font-weight:800}
 .big{font-size:34px;font-weight:800;color:var(--acc)}
 @media(max-width:720px){.ex{grid-template-columns:62px 1fr}.pic{width:58px;height:58px}.ex .sr{grid-column:2;justify-self:start;text-align:right}}
+.anim{width:112px;height:112px;background:#fff;border-radius:14px;position:relative;overflow:hidden;cursor:zoom-in}
+.anim img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.anim.two img:last-child{animation:flip 2.4s ease-in-out infinite}
+@keyframes flip{0%,30%{opacity:0}45%,80%{opacity:1}95%,100%{opacity:0}}
+#zoom{position:fixed;inset:0;background:#000c;display:none;place-items:center;z-index:50;padding:20px}
+#zoom.on{display:grid}
+.zin{background:var(--card);border-radius:20px;padding:16px;text-align:center;max-width:420px;width:100%}
+.zin .anim{width:100%;height:auto;aspect-ratio:1;cursor:default}
+.zt{font-weight:800;font-size:18px;margin-top:10px}.zin small{color:var(--mut)}
+@media(max-width:720px){.ex{grid-template-columns:96px 1fr}.anim{width:92px;height:92px}}
+.sets{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.set{background:var(--card2);border:1px solid var(--line);color:var(--tx);border-radius:99px;padding:4px 12px;font-size:13px;font-weight:700}
+.set.on{background:#2fd18b22;border-color:var(--car);color:var(--car)}
+#toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,160%);width:min(92vw,420px);background:linear-gradient(135deg,#ff5f8f,#ff7a2f);color:#fff;border-radius:20px;padding:18px 18px 14px;box-shadow:0 12px 40px #0008;transition:.35s;z-index:60;text-align:center}
+#toast.on{transform:translate(-50%,0)}
+#toast .tm{font-size:18px;font-weight:800;line-height:1.6}
+#toast .ts{margin-top:4px;font-weight:700;opacity:.95}
+#toast .tr{margin-top:10px;background:#0002;border-radius:12px;padding:6px;font-weight:700}
+#toast .kb{display:inline-block;margin-top:12px;background:#fff;color:#e2456f;font-weight:800;border-radius:12px;padding:8px 16px;text-decoration:none}
+#toast .tx{position:absolute;top:8px;left:10px;background:none;border:0;color:#fff;font-size:16px;opacity:.8}
 </style>
 </head>
 <body>
@@ -254,7 +274,11 @@ th{color:var(--acc2);font-weight:800}
   </div>
 </section>
 
-<p class="foot">التقدّم يتحفظ على هذا الجهاز والمتصفح فقط.</p>
+
+
+<p class="foot">التقدّم يتحفظ على هذا الجهاز والمتصفح فقط.<br>رسومات التمارين: <a href="https://repdb.co" target="_blank" rel="noopener" style="color:var(--acc2)">Exercise data by RepDB (repdb.co)</a></p>
+<div id="toast"></div>
+<div id="zoom" onclick="this.classList.remove('on')"><div class="zin"><div class="zbox"></div><div class="zt"></div><small>اضغط بأي مكان للإغلاق</small></div></div>
 </div>
 
 <script>
@@ -320,46 +344,89 @@ Object.assign(ICON,{
  swing:H(30,8)+L(["M30 13V32","M30 32L44 26","M30 32L30 52","M30 17L22 28","M30 17L38 28"])+EQ("M16 54H44"),
  cobra:H(14,24)+L(["M16 29L22 40L52 46","M18 32V44"])+EQ("M4 48H56")
 });
-function warm(focus){
-  const base=[{e:["مشي سريع أو دراجة","Treadmill / Bike","يرفع حرارة الجسم ونبض القلب تدريجيًا"],sr:"٥ دقايق",k:focus==="lower"?"bike":"walk"}];
-  const up=[{e:["تدوير الأذرع","Arm Circles","دواير صغيرة وبعدين كبيرة، للأمام وللخلف"],sr:"١٥ لكل اتجاه",k:"armc"},
-            {e:["فتح الصدر على الجدار","Wall Chest Opener","يدك على الجدار ولف جسمك بالعكس بهدوء"],sr:"٢٠ ث لكل جهة",k:"doorway"},
-            {e:["ضغط على الجدار","Wall Push-ups","يجهّز الصدر والأكتاف للحديد"],sr:"١٥ مرة",k:"push"},
-            {e:["سحب مطاط/كيبل خفيف","Band Pull-aparts","وزن خفيف جدًا، عصّر لوحي الكتف"],sr:"١٥ مرة",k:"row"}];
-  const lo=[{e:["أرجحة الرجل","Leg Swings","امسك شيء ثابت، أرجح الرجل أمام وخلف"],sr:"١٢ لكل رجل",k:"swing"},
-            {e:["سكوات بوزن الجسم","Bodyweight Squat","بدون وزن، مدى حركة كامل"],sr:"١٥ مرة",k:"squat"},
-            {e:["لنجز بدون وزن","Bodyweight Lunges","خطوة واسعة ببطء"],sr:"٨ لكل رجل",k:"lunge"},
-            {e:["جسر الحوض","Glute Bridge","استلقِ وارفع الحوض وعصّر المؤخرة"],sr:"١٥ مرة",k:"legraise"}];
-  const card=[{e:["أرجحة الرجل","Leg Swings","أمام وخلف وجانبي"],sr:"١٠ لكل رجل",k:"swing"},
-              {e:["تدوير الأذرع","Arm Circles","للأمام وللخلف"],sr:"١٠ لكل اتجاه",k:"armc"}];
-  if(focus==="upper")return base.concat(up);
-  if(focus==="lower")return base.concat(lo);
-  if(focus==="cardio")return [{e:["مشي هادي","Easy Walk","ابدأ بطيء ٣ دقايق قبل ما تسرّع"],sr:"٣ دقايق",k:"walk"}].concat(card);
-  return base.concat([up[0],up[1],lo[1],lo[0]]);
+// ---------- إحماء وإطالة حسب العضلات ----------
+const MUS={chest:"chest",incl:"chest",fly:"chest",push:"chest",backV:"back",backH:"back",face:"shoulder",sh:"shoulder",lat:"shoulder",bi:"arms",tri:"arms",squat:"quads",lunge:"quads",lext:"quads",hinge:"hams",lcurl:"hams",calf:"calf",core1:"core",core2:"core"};
+const MUS_AR={chest:"الصدر",back:"الظهر",shoulder:"الأكتاف",arms:"الذراعين",quads:"الفخذ الأمامي",hams:"الخلفية والمؤخرة",calf:"السمانة",core:"البطن"};
+const W=(a,e,t,sr,k)=>({e:[a,e,t],sr,k});
+const WARM={
+ chest:[W("ضغط على الجدار","Wall Push-ups","يجهّز الصدر والأكتاف للحديد","١٥ مرة","push"),W("ضغط على الركب","Knee Push-ups","نزول بطيء، الجسم مستقيم من الركبة للرأس","١٠ مرات","push")],
+ back:[W("سحب المطاط للجانبين","Band Pull-aparts","عصّر لوحي الكتف لبعض","١٥ مرة","row"),W("القطة والجمل","Cat-Cow (dynamic)","حرّك الظهر فقرة فقرة مع التنفس","١٠ مرات","cat")],
+ shoulder:[W("تدوير الأذرع","Arm Circles","دواير صغيرة وبعدين كبيرة، للأمام وللخلف","١٥ لكل اتجاه","armc"),W("تدوير الكتف للخارج بالمطاط","Band External Rotation","الكوع ثابت جنبك، لف الساعد للخارج","١٢ لكل يد","armc")],
+ arms:[W("تدوير الأذرع","Arm Circles","يدفّي مفصل الكتف والكوع","١٥ لكل اتجاه","armc")],
+ quads:[W("سكوات بوزن الجسم","Bodyweight Squat","بدون وزن، مدى حركة كامل","١٥ مرة","squat"),W("لنجز بدون وزن","Bodyweight Lunges","خطوة واسعة ببطء","٨ لكل رجل","lunge")],
+ hams:[W("أرجحة الرجل","Leg Swings","امسك شيء ثابت، أرجح الرجل أمام وخلف","١٢ لكل رجل","swing"),W("جسر الحوض","Glute Bridge","ارفع الحوض وعصّر المؤخرة","١٥ مرة","legraise"),W("انحناءة صباح الخير","Bodyweight Good Morning","يديك خلف رأسك، ادفع الحوض للخلف","١٢ مرة","hinge")],
+ calf:[W("رفع السمانة بوزن الجسم","Bodyweight Calf Raise","اطلع على أطراف أصابعك ببطء","٢٠ مرة","calf")],
+ core:[W("بيرد دوق","Bird Dog","حركة بطيئة، البطن مشدود","٨ لكل جهة","plank"),W("ديد بق","Dead Bug","أسفل الظهر ملتصق بالأرض","٨ لكل جهة","plank")]
+};
+const COOL={
+ chest:[W("إطالة الصدر على الباب","Doorway Chest Stretch","الكوع بمستوى الكتف، اتقدم خطوة لين تحس بشد","٣٠ ث لكل جهة","doorway"),W("إطالة الصدر على الكرسي","Bench Chest Stretch","افتح ذراعك للخلف واترك الصدر يتمدد","٣٠ ث لكل جهة","doorway")],
+ back:[W("وضعية الطفل","Child's Pose","مد يدينك للأمام وريّح الظهر","٤٠ ث","child"),W("إطالة جانب الظهر على الكرسي","Bench Lat Stretch","يدينك على الكرسي وانزل بصدرك لتحت","٣٠ ث","child")],
+ shoulder:[W("إطالة الكتف عبر الصدر","Cross-body Shoulder Stretch","اسحب ذراعك عبر صدرك بهدوء","٣٠ ث لكل جهة","lateral")],
+ arms:[W("إطالة الترايسبس","Triceps Stretch","يدك ورا رأسك واسحب الكوع بالثانية","٢٠ ث لكل جهة","tri")],
+ quads:[W("إطالة الفخذ الأمامي واقف","Quad Stretch","امسك قدمك ورا، الركبتين جنب بعض","٣٠ ث لكل رجل","quad"),W("إطالة الفخذ الأمامي مستلقي","Lying Quad Stretch","على جنبك، اسحب قدمك للخلف","٣٠ ث لكل رجل","quad")],
+ hams:[W("إطالة الفخذ الخلفي","Hamstring Stretch","اجلس ومد رجلك وانحني بظهر مستقيم","٣٠ ث لكل رجل","hams"),W("إطالة المؤخرة (الحمامة)","Pigeon Stretch","رجل قدامك مثنية، والثانية ممدودة ورا","٣٠ ث لكل جهة","hipflex"),W("إطالة مثنيات الحوض","Hip Flexor Stretch","وضعية لنج، ادفع الحوض للأمام بهدوء","٣٠ ث لكل جهة","hipflex")],
+ calf:[W("إطالة السمانة على الجدار","Calf Stretch","الكعب على الأرض والرجل الخلفية مستقيمة","٣٠ ث لكل رجل","calf")],
+ core:[W("إطالة الكوبرا للبطن","Cobra Stretch","انبطح وارفع صدرك بيدينك بهدوء","٣٠ ث","cobra")]
+};
+function musclesOf(d){
+  const c={};(d.b||[]).forEach(([t,l])=>l.forEach(x=>{const m=MUS[x.m];if(m)c[m]=(c[m]||0)+1}));
+  if(d.ty==="cardio"){c.quads=(c.quads||0)+2;c.hams=(c.hams||0)+2;c.calf=(c.calf||0)+1}
+  return Object.keys(c).sort((a,b)=>c[b]-c[a]);
 }
-function cool(focus){
-  const up=[{e:["إطالة الصدر على الباب","Doorway Chest Stretch","الكوع بمستوى الكتف، اتقدم خطوة لين تحس بشد"],sr:"٣٠ ث لكل جهة",k:"doorway"},
-            {e:["وضعية الطفل","Child's Pose","مد يدينك للأمام وريّح الظهر"],sr:"٤٠ ث",k:"child"},
-            {e:["إطالة الترايسبس","Triceps Stretch","يدك ورا رأسك واسحب الكوع بالثانية"],sr:"٢٠ ث لكل جهة",k:"tri"},
-            {e:["القطة والجمل","Cat-Cow","قوّس الظهر ثم انزله ببطء مع التنفس"],sr:"١٠ مرات",k:"cat"}];
-  const lo=[{e:["إطالة الفخذ الأمامي","Quad Stretch","امسك قدمك ورا، الركبتين جنب بعض"],sr:"٣٠ ث لكل رجل",k:"quad"},
-            {e:["إطالة الفخذ الخلفي","Hamstring Stretch","اجلس ومد رجلك وانحني للأمام بظهر مستقيم"],sr:"٣٠ ث لكل رجل",k:"hams"},
-            {e:["إطالة مثنيات الحوض","Hip Flexor Stretch","وضعية لنج، ادفع الحوض للأمام بهدوء"],sr:"٣٠ ث لكل جهة",k:"hipflex"},
-            {e:["إطالة السمانة على الجدار","Calf Stretch","الكعب على الأرض والرجل الخلفية مستقيمة"],sr:"٣٠ ث لكل رجل",k:"calf"}];
-  const ab={e:["إطالة الكوبرا للبطن","Cobra Stretch","انبطح وارفع صدرك بيدينك بهدوء"],sr:"٣٠ ث",k:"cobra"};
-  const breathe={e:["تنفس عميق","Deep Breathing","شهيق ٤ ثواني، زفير ٦ ثواني — يهدّي النبض"],sr:"دقيقة",k:"child"};
-  if(focus==="upper")return up.concat([breathe]);
-  if(focus==="lower")return lo.concat([ab,breathe]);
-  if(focus==="cardio")return [lo[0],lo[1],lo[3],ab];
-  return [up[0],lo[0],lo[1],up[1],breathe];
+const LOWER=["quads","hams","calf"];
+function warm(d,wk){
+  const ms=musclesOf(d), lower=LOWER.includes(ms[0]);
+  const g=d.ty==="cardio"?W("مشي هادي ثم أسرع تدريجيًا","Easy Walk","٣ دقايق هادي قبل ما تسرّع","٣ دقايق","walk")
+    :lower?W("دراجة ثابتة","Stationary Bike","سرعة متوسطة، يدفّي الركب والأفخاذ","٥ دقايق","bike")
+    :ms[0]==="back"?W("جهاز التجديف","Rowing Machine","حركة سلسة، يدفّي الظهر والجسم كله","٥ دقايق","row")
+    :W("مشي سريع على السير","Treadmill / Bike","يرفع حرارة الجسم ونبض القلب تدريجيًا","٥ دقايق","walk");
+  const out=[g];
+  ms.slice(0,4).forEach((m,i)=>{const L=WARM[m];out.push(L[(wk+i)%L.length]);if(i<2&&L.length>1&&m!=="arms")out.push(L[(wk+i+1)%L.length])});
+  if(d.ty==="strength")out.push(W("جولة تجهيزية","Ramp-up Set","أول تمرين: جولة خفيفة بنص الوزن قبل الجولات الحقيقية","١ × ١٠","press"));
+  return dedupe(out).slice(0,7);
 }
-function focusOf(d){
-  if(d.ty==="cardio")return "cardio";
-  if(/سفلي|أرجل/.test(d.t))return "lower";
-  if(/علوي|دفع|سحب/.test(d.t))return "upper";
-  return "full";
+function cool(d,wk){
+  const ms=musclesOf(d), out=[];
+  ms.slice(0,4).forEach((m,i)=>{const L=COOL[m];out.push(L[(wk+i)%L.length]);if(i===0&&L.length>1)out.push(L[(wk+1)%L.length])});
+  if(!ms.includes("core")&&d.ty!=="cardio")out.push(COOL.core[0]);
+  out.push(W("تنفس عميق","Deep Breathing","شهيق ٤ ثواني، زفير ٦ ثواني — يهدّي النبض","دقيقة","child"));
+  return dedupe(out).slice(0,6);
 }
-
+// ---------- الجولات + رسائل الحب ----------
+let sets=LS0("wp_sets",{});
+function LS0(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function setBtns(gi,n,sr){
+  const m=sr.match(/^(\d+) ×/);if(!m)return "";
+  let h='<div class="sets">';
+  for(let i=1;i<=+m[1];i++){const k=gi+"-"+n+"-"+i;h+=`<button class="set ${sets[k]?"on":""}" data-k="${k}">${sets[k]?"✓":""} جولة ${AR(i)}</button>`}
+  return h+"</div>";
+}
+const LOVE=[
+ ["خلّصت تمرينك؟ 🙈 لا تطالعني كذا… أنا بس أسأل","حبيبتك"],
+ ["يقولون اللي يتمرن يصير أسرع… بشوف إذا تقدر تلحقني 😌🏃‍♀️","رحوبتك"],
+ ["أدري إنك تعبان… بس أنا زعلانة شوي، ومحد يعرف يراضيني غيرك 🥺💗","دلوعتك"],
+ ["يوم ورا يوم تقوى… وأنا يوم ورا يوم أضيع فيك أكثر، بس لا تقول لأحد 🤫","أحبك موت ❤️‍🔥"],
+ ["اوووففف… اشتقت لحضورك في عز حضورك، وما راح أقولها مرة ثانية 🙈","رحوبا"],
+ ["شفت نفسك بالمراية؟ 😏 لا… أنا ما كنت أطالع، صدفة 🤭","روبي"],
+ ["سمعت إن فيه بطل خلّص تمرينه… والأبطال يستاهلون أحلى كبسة بالدنيا 🍛 بس لازم يطلبها هو، وبعدين أفكر 🙈😌","قلبي",1],
+ ["ما راح أقول إني أستناك… بس القهوة جاهزة، والباب مفتوح، وأنا… عادي 😌🤍","العمر كله"]
+];
+let loveI=+LS0("wp_love",0);
+function love(){
+  const t=document.getElementById("toast");const [msg,sig,kabsa]=LOVE[loveI%LOVE.length];
+  loveI++;try{localStorage.setItem("wp_love",loveI)}catch(e){}
+  t.innerHTML=`<div class="tm">${msg}</div><div class="ts">— ${sig}</div>${kabsa?'<a class="kb" href="https://wa.me/?text='+encodeURIComponent("أبي كبسة 😋🍛")+'" target="_blank" rel="noopener">🍛 اطلبها: أبي كبسة</a>':""}<button class="tx" aria-label="إغلاق">✕</button>`;
+  t.classList.add("on");t.querySelector(".tx").onclick=()=>t.classList.remove("on");
+}
+function dedupe(a){const s=new Set();return a.filter(x=>!s.has(x.e[1])&&s.add(x.e[1]))}
+function targetLine(d){const ms=musclesOf(d).slice(0,4).map(m=>MUS_AR[m]);return ms.length?"العضلات اليوم: "+ms.join("، "):""}
+const IMG={"Chest Press Machine": ["img/chest-press-machine-start.webp", "img/chest-press-machine-peak.webp"], "Dumbbell Bench Press": ["img/db-bench-press-start.webp", "img/db-bench-press-peak.webp"], "Barbell Bench Press": ["img/bench-press-start.webp", "img/bench-press-peak.webp"], "Incline DB Press": ["img/incline-db-press-start.webp", "img/incline-db-press-peak.webp"], "Incline Chest Press Machine": ["img/smith-machine-incline-bench-press-start.webp", "img/smith-machine-incline-bench-press-peak.webp"], "Incline Smith Press": ["img/smith-machine-incline-bench-press-start.webp", "img/smith-machine-incline-bench-press-peak.webp"], "Pec Deck": ["img/pec-deck-start.webp", "img/pec-deck-peak.webp"], "Low-to-High Cable Fly": ["img/cable-fly-start.webp", "img/cable-fly-peak.webp"], "Dumbbell Fly": ["img/db-fly-start.webp", "img/db-fly-peak.webp"], "Incline Push-ups": ["img/incline-push-ups-start.webp", "img/incline-push-ups-peak.webp"], "Push-ups": ["img/push-up-start.webp", "img/push-up-peak.webp"], "Assisted Dips": ["img/assisted-dips-start.webp", "img/assisted-dips-peak.webp"], "Lat Pulldown": ["img/lat-pulldown-start.webp", "img/lat-pulldown-peak.webp"], "Assisted Pull-up": ["img/assisted-pull-ups-start.webp", "img/assisted-pull-ups-peak.webp"], "Close-grip Pulldown": ["img/close-grip-lat-pulldown-start.webp", "img/close-grip-lat-pulldown-peak.webp"], "Seated Cable Row": ["img/seated-cable-row-start.webp", "img/seated-cable-row-peak.webp"], "One-arm DB Row": ["img/single-arm-db-row-start.webp", "img/single-arm-db-row-peak.webp"], "Machine Row": ["img/chest-supported-machine-row-start.webp", "img/chest-supported-machine-row-peak.webp"], "Face Pull": ["img/face-pull-start.webp", "img/face-pull-peak.webp"], "Reverse Pec Deck": ["img/machine-reverse-fly-start.webp", "img/machine-reverse-fly-peak.webp"], "Goblet Squat": ["img/goblet-squat-start.webp", "img/goblet-squat-peak.webp"], "Leg Press": ["img/leg-press-start.webp", "img/leg-press-peak.webp"], "Smith Squat": ["img/smith-machine-squat-start.webp", "img/smith-machine-squat-peak.webp"], "DB Romanian Deadlift": ["img/dumbbell-romanian-deadlift-start.webp", "img/dumbbell-romanian-deadlift-peak.webp"], "Hip Thrust": ["img/hip-thrust-start.webp", "img/hip-thrust-peak.webp"], "Back Extension": ["img/back-extension-start.webp", "img/back-extension-peak.webp"], "Walking Lunges": ["img/walking-lunge-start.webp", "img/walking-lunge-peak.webp"], "Step-ups": ["img/step-ups-start.webp", "img/step-ups-peak.webp"], "Bulgarian Split Squat": ["img/bulgarian-split-squat-start.webp", "img/bulgarian-split-squat-peak.webp"], "Lying Leg Curl": ["img/leg-curl-start.webp", "img/leg-curl-peak.webp"], "Seated Leg Curl": ["img/seated-leg-curl-start.webp", "img/seated-leg-curl-peak.webp"], "Leg Extension": ["img/leg-extension-start.webp", "img/leg-extension-peak.webp"], "Standing Calf Raise": ["img/standing-calf-raise-start.webp", "img/standing-calf-raise-peak.webp"], "Seated Calf Raise": ["img/seated-calf-raise-start.webp", "img/seated-calf-raise-peak.webp"], "Seated DB Shoulder Press": ["img/seated-db-press-start.webp", "img/seated-db-press-peak.webp"], "Machine Shoulder Press": ["img/machine-shoulder-press-start.webp", "img/machine-shoulder-press-peak.webp"], "DB Lateral Raise": ["img/lateral-raise-start.webp", "img/lateral-raise-peak.webp"], "Cable Lateral Raise": ["img/cable-lateral-raise-start.webp", "img/cable-lateral-raise-peak.webp"], "DB Curl": ["img/bicep-curl-start.webp", "img/bicep-curl-peak.webp"], "Hammer Curl": ["img/hammer-curl-start.webp", "img/hammer-curl-peak.webp"], "Cable Curl": ["img/cable-curl-start.webp", "img/cable-curl-peak.webp"], "Rope Pushdown": ["img/tricep-pushdown-start.webp", "img/tricep-pushdown-peak.webp"], "Overhead DB Extension": ["img/dumbbell-tricep-extension-start.webp", "img/dumbbell-tricep-extension-peak.webp"], "Plank": ["img/plank-main.webp"], "Dead Bug": ["img/dead-bug-start.webp", "img/dead-bug-peak.webp"], "Bird Dog": ["img/bird-dog-start.webp", "img/bird-dog-peak.webp"], "Lying Leg Raise": ["img/lying-leg-raise-start.webp", "img/lying-leg-raise-peak.webp"], "Cable Crunch": ["img/cable-crunch-start.webp", "img/cable-crunch-peak.webp"], "Side Plank": ["img/side-plank-main.webp"], "Mountain Climbers": ["img/mountain-climbers-start.webp", "img/mountain-climbers-peak.webp"], "Bike Intervals": ["img/stationary-bike-main.webp"], "Treadmill Intervals": ["img/incline-treadmill-walk-main.webp"], "Incline Walk": ["img/incline-treadmill-walk-main.webp"], "Easy Walk": ["img/walking-main.webp"], "Full Body Stretch": ["img/worlds-greatest-stretch-start.webp", "img/worlds-greatest-stretch-peak.webp"], "Treadmill / Bike": ["img/incline-treadmill-walk-main.webp"], "Wall Chest Opener": ["img/doorway-chest-stretch-main.webp"], "Wall Push-ups": ["img/wall-push-ups-start.webp", "img/wall-push-ups-peak.webp"], "Band Pull-aparts": ["img/band-pull-apart-start.webp", "img/band-pull-apart-peak.webp"], "Leg Swings": ["img/leg-swing-front-to-back-start.webp", "img/leg-swing-front-to-back-peak.webp"], "Bodyweight Squat": ["img/bodyweight-squat-start.webp", "img/bodyweight-squat-peak.webp"], "Bodyweight Lunges": ["img/lunge-start.webp", "img/lunge-peak.webp"], "Glute Bridge": ["img/glute-bridge-start.webp", "img/glute-bridge-peak.webp"], "Doorway Chest Stretch": ["img/doorway-chest-stretch-main.webp"], "Child's Pose": ["img/childs-pose-main.webp"], "Triceps Stretch": ["img/overhead-triceps-stretch-main.webp"], "Cat-Cow": ["img/cat-cow-main.webp"], "Quad Stretch": ["img/standing-quad-stretch-main.webp"], "Hamstring Stretch": ["img/seated-forward-fold-main.webp"], "Hip Flexor Stretch": ["img/kneeling-hip-flexor-stretch-main.webp"], "Calf Stretch": ["img/standing-calf-stretch-main.webp"], "Cobra Stretch": ["img/cobra-stretch-main.webp"], "Deep Breathing": ["img/easy-pose-main.webp"], "Knee Push-ups": ["img/knee-push-ups-start.webp", "img/knee-push-ups-peak.webp"], "Cat-Cow (dynamic)": ["img/cat-cow-main.webp"], "Band External Rotation": ["img/band-shoulder-external-rotation-start.webp", "img/band-shoulder-external-rotation-peak.webp"], "Bodyweight Good Morning": ["img/bodyweight-good-morning-start.webp", "img/bodyweight-good-morning-peak.webp"], "Bodyweight Calf Raise": ["img/bodyweight-calf-raise-start.webp", "img/bodyweight-calf-raise-peak.webp"], "Stationary Bike": ["img/stationary-bike-main.webp"], "Rowing Machine": ["img/rowing-machine-start.webp", "img/rowing-machine-peak.webp"], "Bench Chest Stretch": ["img/bench-chest-stretch-main.webp"], "Bench Lat Stretch": ["img/bench-lat-stretch-main.webp"], "Cross-body Shoulder Stretch": ["img/cross-body-shoulder-stretch-main.webp"], "Lying Quad Stretch": ["img/lying-quad-stretch-main.webp"], "Pigeon Stretch": ["img/pigeon-stretch-main.webp"]};
+function media(x){
+  const f=IMG[x.e[1]];
+  if(!f)return svg(x.k);
+  if(f.length===1)return `<div class="anim" data-n="${x.e[1]}"><img src="${f[0]}" alt="${x.e[0]}" loading="lazy"></div>`;
+  return `<div class="anim two" data-n="${x.e[1]}"><img src="${f[0]}" alt="${x.e[0]}" loading="lazy"><img src="${f[1]}" alt="" loading="lazy"></div>`;
+}
 const svg=k=>`<svg viewBox="0 0 60 60" class="pic">${ICON[k]||ICON.stretch}</svg>`;
 
 // [مفتاح, إزاحة]
@@ -388,7 +455,7 @@ function cardioTxt(min,kind){
 // قوالب الأسبوع لكل مرحلة
 function weekPlan(ph,w){ // w: index within phase 0..3
   const s=PH[ph].sets(w), c=PH[ph].cardio(w), cs="3 × 30–45 ث";
-  const ex=(k,o,sr)=>({e:pick(k,w,o),sr:sr||s,k:KI[k]});
+  const ex=(k,o,sr)=>({e:pick(k,w,o),sr:sr||s,k:KI[k],m:k});
   const cardioBlock=(min,kind)=>cardioTxt(min,kind).map(e=>({e,sr:"كارديو",k:kind==="hiit"?"bike":"walk"}));
   if(ph===0)return[
    {t:"جسم كامل A",ty:"strength",b:[["حديد",[ex("squat",0),ex("chest",0),ex("backV",0),ex("hinge",0),ex("sh",0),ex("core1",0,cs)]],["كارديو بعد الحديد",cardioBlock(10)]]},
@@ -459,17 +526,19 @@ function renderDetail(d,gi){
     if(d.note)h+=`<div class="note">${d.note}</div>`;
     if(d.ty==="strength")h+=`<div class="note">ابدأ بالإحماء، بعدها الحديد (الراحة بين الجولات ٦٠–٩٠ ثانية)، واختم بالإطالة. لا تتخطى الإحماء — يحميك من الإصابة.</div>`;
     let n=0;
-    const blocks=d.ty==="active"?d.b:[["🔥 إحماء قبل التمرين (٨ دقايق تقريبًا)",warm(focusOf(d))],...d.b,["🧘 إطالة بعد التمرين (٥–٨ دقايق)",cool(focusOf(d))]];
+    const wk=selW,tl=targetLine(d);if(tl&&d.ty!=="active")h+=`<div class="note">🎯 ${tl} — الإحماء والإطالة مركّزة عليها.</div>`;
+    const blocks=d.ty==="active"?d.b:[["🔥 إحماء لعضلات اليوم (٨–١٠ دقايق)",warm(d,wk)],...d.b,["🧘 إطالة لعضلات اليوم (٥–٨ دقايق)",cool(d,wk)]];
     blocks.forEach(([title,list])=>{
       h+=`<div class="blk">${title}</div>`;
-      list.forEach(x=>{n++;const yt="https://www.youtube.com/results?search_query="+encodeURIComponent(x.e[1]+" proper form beginner");
-        h+=`<div class="ex">${svg(x.k)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div><a class="yt" href="${yt}" target="_blank" rel="noopener">▶ شوف طريقة الأداء بالفيديو</a></div><div class="sr">${srTxt(x.sr)}</div></div>`});
+      list.forEach(x=>{n++;
+        h+=`<div class="ex">${media(x)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div></div><div class="sr">${srTxt(x.sr)}</div></div>`});
     });
     h+=`<button class="btn donebtn ${done[gi]?"is":""}" id="mark">${done[gi]?"✓ خلّصته — اضغط للتراجع":"خلّصت تمرين اليوم"}</button>`;
   }
   const el=document.getElementById("detail");el.innerHTML=h;
+  el.querySelectorAll(".anim").forEach(a=>a.onclick=()=>{const m=document.getElementById("zoom");m.querySelector(".zbox").innerHTML=a.outerHTML;m.querySelector(".zt").textContent=a.closest(".ex").querySelector(".nm").textContent.replace(/^\S+\s/,"");m.classList.add("on")});
   const m=document.getElementById("mark");
-  if(m)m.onclick=()=>{done[gi]?delete done[gi]:done[gi]=1;LS.set("wp_done",done);render()};
+  if(m)m.onclick=()=>{const was=done[gi];was?delete done[gi]:done[gi]=1;LS.set("wp_done",done);render()};
 }
 
 function goToday(){const t=todayIdx();if(t>=0&&t<84){selW=Math.floor(t/7);selD=t%7}else{selW=0;selD=0}render();document.getElementById("days").scrollIntoView({behavior:"smooth",block:"center"})}
