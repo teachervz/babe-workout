@@ -92,6 +92,7 @@ ul.l li{margin:4px 0}
 .num{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--acc);color:#1a0d04;font-size:13px;margin-left:4px}
 .yt{display:inline-block;margin-top:4px;font-size:13px;color:var(--acc2);text-decoration:none;border:1px solid #ffb34755;border-radius:8px;padding:1px 8px}
 .ex .sr{text-align:center;line-height:1.4}.ex .sr small{display:block;font-weight:500;color:var(--mut);font-size:12px}
+.wt{margin-top:5px;padding-top:5px;border-top:1px dashed var(--line);color:var(--acc2)}
 table{width:100%;border-collapse:collapse;font-size:15px}
 td,th{padding:8px;border-bottom:1px solid var(--line);text-align:right}
 th{color:var(--acc2);font-weight:800}
@@ -262,8 +263,11 @@ th{color:var(--acc2);font-weight:800}
   <div class="grid2">
     <div class="card">
       <ul class="l">
+        <li>الوزن المكتوب 🏋️ عند كل تمرين <b>نقطة بداية</b> ويزيد تقريبًا كل أسبوعين. الأجهزة تختلف من نادي لنادي، فالإحساس أهم من الرقم.</li>
+        <li>ما كمّل أقل عدد عدّات، أو خرب أداؤه ← ينزّل درجة. إذا الرقم مو موجود بالنادي ← ياخذ الأقل منه.</li>
+        <li>«مساعدة الجهاز» (العقلة والمتوازي): كل ما قل الرقم صار التمرين <b>أصعب</b>.</li>
         <li>الوزن الصح: آخر ٢–٣ عدّات صعبة بس يقدر يكملها بأداء نظيف.</li>
-        <li>إذا كمّل أعلى عدد عدّات بكل الجولات ← يزيد الوزن شوي الأسبوع الجاي.</li>
+        <li>إذا كمّل أعلى عدد عدّات بكل الجولات ← يزيد الوزن شوي الأسبوع الجاي، حتى لو زاد عن المكتوب.</li>
         <li>النزول ببطء (٢–٣ ثواني) أهم من الوزن الثقيل.</li>
         <li>الراحة بين الجولات: ٦٠–٩٠ ثانية.</li>
       </ul>
@@ -624,6 +628,56 @@ function cardioTxt(min,kind){
   return[["مشي سريع على السير بميلان","Incline Walk",`${min} دقيقة — ميلان ٨–١٢، سرعة ٤.٥–٥.٥، تقدر تتكلم بصعوبة`]];
 }
 
+// ---------- الأوزان المقترحة (كجم) ----------
+// نقطة بداية لمبتدئ وزنه ٨١ كجم. القيم الست: أسبوع ١–٢، ٣–٤، ٥–٦، ٧–٨، ٩–١٠، ١١–١٢
+// db لكل يد · db1 دمبل واحد · mach جهاز · cab كيبل · cabh كيبل لكل يد · side أقراص لكل جهة
+// bar المجموع مع البار (٢٠) · plate أقراص · assist وزن المساعدة (كل ما قل صار أصعب) · bw وزن الجسم
+const WT={
+ "Chest Press Machine":["mach",20,25,30,35,40,45],"Dumbbell Bench Press":["db",7.5,10,10,12.5,15,15],"Barbell Bench Press":["bar",20,25,30,30,35,40],
+ "Incline DB Press":["db",7.5,7.5,10,10,12.5,12.5],"Incline Chest Press Machine":["mach",15,20,25,30,30,35],"Incline Smith Press":["side",0,2.5,5,7.5,7.5,10],
+ "Pec Deck":["mach",15,20,25,30,30,35],"Low-to-High Cable Fly":["cabh",5,5,5,5,7.5,7.5],"Dumbbell Fly":["db",5,5,5,7.5,7.5,7.5],
+ "Incline Push-ups":["bw"],"Push-ups":["bw"],"Assisted Dips":["assist",45,40,40,35,30,30],
+ "Lat Pulldown":["mach",25,30,35,40,40,45],"Assisted Pull-up":["assist",50,45,40,40,35,30],"Close-grip Pulldown":["mach",25,30,35,40,40,45],
+ "Seated Cable Row":["mach",25,30,35,40,40,45],"One-arm DB Row":["db1",10,10,12.5,15,15,17.5],"Machine Row":["mach",20,25,30,35,40,40],
+ "Face Pull":["cab",10,10,12.5,15,15,17.5],"Reverse Pec Deck":["mach",10,15,15,20,20,25],
+ "Goblet Squat":["db1",7.5,10,12.5,15,17.5,20],"Leg Press":["side",15,20,25,30,35,40],"Smith Squat":["side",0,5,7.5,10,12.5,15],
+ "DB Romanian Deadlift":["db",7.5,10,12.5,15,17.5,17.5],"Hip Thrust":["bar",20,30,40,50,50,60],"Back Extension":["plate",0,0,0,0,5,5],
+ "Walking Lunges":["db",0,0,5,5,7.5,10],"Step-ups":["db",0,0,5,5,7.5,10],"Bulgarian Split Squat":["db",0,0,0,5,5,7.5],
+ "Lying Leg Curl":["mach",15,20,25,25,30,30],"Seated Leg Curl":["mach",20,25,30,30,35,40],"Leg Extension":["mach",20,25,30,35,35,40],
+ "Standing Calf Raise":["mach",20,25,30,40,45,50],"Seated Calf Raise":["plate",10,15,20,20,25,30],
+ "Seated DB Shoulder Press":["db",5,7.5,7.5,10,10,12.5],"Machine Shoulder Press":["mach",10,15,20,20,25,25],
+ "DB Lateral Raise":["db",2.5,2.5,5,5,5,5],"Cable Lateral Raise":["cabh",2.5,2.5,2.5,5,5,5],
+ "DB Curl":["db",5,5,7.5,7.5,7.5,10],"Hammer Curl":["db",5,7.5,7.5,7.5,10,10],"Cable Curl":["cab",10,10,15,15,17.5,20],
+ "Rope Pushdown":["cab",10,10,15,15,17.5,20],"Overhead DB Extension":["db1",5,7.5,7.5,10,10,12.5],
+ "Plank":["bw"],"Dead Bug":["bw"],"Bird Dog":["bw"],"Lying Leg Raise":["bw"],"Cable Crunch":["cab",15,20,20,25,25,30],"Side Plank":["bw"],"Mountain Climbers":["bw"]
+};
+const WSTEP={db:2.5,db1:2.5,mach:5,cab:2.5,cabh:2.5,side:2.5,bar:5,plate:2.5,assist:5};
+const WLBL={db:"دمبل لكل يد",db1:"دمبل واحد",mach:"على الجهاز",cab:"على الكيبل",cabh:"كيبل لكل يد",side:"أقراص لكل جهة",plate:"أقراص",assist:"مساعدة الجهاز"};
+// lvl: رقم الأسبوع من ٠، أو "str" شهر القوة، "mus" شهر العضل، "fit" شهر اللياقة
+function wtVal(name,lvl){
+  const r=WT[name];if(!r)return null;
+  const k=r[0];if(k==="bw")return [k,0];
+  if(lvl==="str"){const v=r[6],st=WSTEP[k];return [k,k==="assist"?v-5:Math.max(v+st,Math.round(v*1.1/st)*st)]}
+  return [k,lvl==="fit"?r[4]:lvl==="mus"?r[6]:r[1+Math.floor(lvl/2)]];
+}
+function wtBox([k,v]){
+  const box=(b,s)=>`<div class="wt"><b>🏋️ ${b}</b><small>${s}</small></div>`;
+  if(k==="side"&&v===0)return box("البار فاضي","بدون أقراص");
+  if(k==="bw"||v===0)return box("وزن الجسم","بدون أوزان");
+  if(k==="bar")return box(v<=20?"البار فاضي":AR(v)+" كجم",v<=20?"٢٠ كجم":`مع البار (${AR((v-20)/2)} كل جهة)`);
+  return box(AR(v)+" كجم",WLBL[k]);
+}
+function wtHtml(x,lvl,d){
+  if(x.e[1]==="Ramp-up Set"){ // نص وزن أول تمرين
+    const f=d.b[0][1][0].e[1],r=wtVal(f,lvl);if(!r)return "";
+    const [k,v]=r,st=WSTEP[k];
+    if(k==="assist")return wtBox([k,Math.min(60,v+15)]);
+    return wtBox([k,k==="bar"?20:k==="bw"?0:v?Math.max(st,Math.floor(v/2/st)*st):0]);
+  }
+  if(/Band/.test(x.e[1]))return `<div class="wt"><small>مطاط خفيف</small></div>`;
+  const r=x.m&&wtVal(x.e[1],lvl);return r?wtBox(r):"";
+}
+
 // قوالب الأسبوع لكل مرحلة
 function weekPlan(ph,w){ // w: index within phase 0..3
   const s=PH[ph].sets(w), c=PH[ph].cardio(w), cs="3 × 30–45 ث";
@@ -703,7 +757,7 @@ function renderDetail(d,gi){
     blocks.forEach(([title,list])=>{
       h+=`<div class="blk">${title}</div>`;
       list.forEach(x=>{n++;
-        h+=`<div class="ex">${media(x)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div>${yt(x)}</div><div class="sr">${srTxt(x.sr)}</div></div>`});
+        h+=`<div class="ex">${media(x)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div>${yt(x)}</div><div class="sr">${srTxt(x.sr)}${wtHtml(x,selW,d)}</div></div>`});
     });
     h+=`<button class="btn donebtn ${done[gi]?"is":""}" id="mark">${done[gi]?"✓ خلّصته — اضغط للتراجع":"خلّصت تمرين اليوم"}</button>`;
   }
@@ -761,9 +815,10 @@ function renderLife(){
   if(d.ty==="rest"){h+=`<div class="note">😴 راحة. مشي خفيف عادي وخطواتك اليومية.</div>`}
   else{
     const tl=targetLine(d);if(tl)h+=`<div class="note">🎯 ${tl}</div>`;
+    if(d.ty==="strength")h+=`<div class="note">🏋️ الأوزان المكتوبة مبنية على نهاية الـ١٢ أسبوع. إذا صرت أقوى، كمّل على وزنك أنت.</div>`;
     let n=0;[["🔥 إحماء لعضلات اليوم",warm(d,m)],...d.b,["🧘 إطالة لعضلات اليوم",cool(d,m)]].forEach(([title,list])=>{
       h+=`<div class="blk">${title}</div>`;
-      list.forEach(x=>{n++;h+=`<div class="ex">${media(x)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div>${yt(x)}</div><div class="sr">${srTxt(x.sr)}</div></div>`});
+      list.forEach(x=>{n++;h+=`<div class="ex">${media(x)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div>${yt(x)}</div><div class="sr">${srTxt(x.sr)}${wtHtml(x,x.sr===B.sets||x.e[1]==="Ramp-up Set"&&d.b[0][1][0].sr===B.sets?["str","mus","fit"][i]:"mus",d)}</div></div>`});
     });
   }
   const el=document.getElementById("lifeDetail");el.innerHTML=h;bindZoom(el);
