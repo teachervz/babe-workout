@@ -117,9 +117,40 @@ th{color:var(--acc2);font-weight:800}
 #toast .tr{margin-top:10px;background:#0002;border-radius:12px;padding:6px;font-weight:700}
 #toast .kb{display:inline-block;margin-top:12px;background:#fff;color:#e2456f;font-weight:800;border-radius:12px;padding:8px 16px;text-decoration:none}
 #toast .tx{position:absolute;top:8px;left:10px;background:none;border:0;color:#fff;font-size:16px;opacity:.8}
+.topnav{position:sticky;top:0;z-index:40;background:#0f1419ee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;gap:6px;padding:8px 16px}
+.topnav a{flex:1;text-align:center;padding:9px;border-radius:12px;color:var(--mut);text-decoration:none;font-weight:800;font-size:15px}
+.topnav a.on{background:var(--acc);color:#1a0d04}
+.lifehero{background:linear-gradient(135deg,#2fd18b22,#8a7dff1c)}
+.lifehero h1 span{color:var(--car)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.rule{background:var(--card);border:1px solid var(--line);border-right:4px solid var(--car);border-radius:14px;padding:12px 14px}
+.rule b{display:block}.rule span{color:var(--mut);font-size:14px}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.opts button{background:var(--card2);border:1px solid var(--line);color:var(--tx);border-radius:14px;padding:10px;font-weight:800;font-size:15px;line-height:1.5}
+.opts button small{color:var(--mut);font-weight:500}
+.opts button.on{border-color:var(--car);background:#2fd18b18}
+.blockinfo{margin:12px 0;background:var(--card2);border-radius:12px;padding:10px 14px}
+.lifedays{grid-template-columns:repeat(7,1fr)}
+.year{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.mo{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;font-size:13px}
+.mo b{display:block;font-size:14px}
+.mo.now{border-color:var(--acc);box-shadow:0 0 0 2px #ff7a2f55}
+.mo.k0{border-top:4px solid var(--str)}.mo.k1{border-top:4px solid var(--acc)}.mo.k2{border-top:4px solid var(--car)}
+.hb{display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px dashed var(--line);cursor:pointer}
+.hb:last-child{border:0}
+.hb input{width:20px;height:20px;accent-color:var(--car)}
+.tform{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:12px 0;align-items:end}
+.tform label{font-size:13px;color:var(--mut);display:flex;flex-direction:column;gap:4px}
+.tform input{background:var(--card2);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:8px;font-family:inherit}
+.tlog td,.tlog th{text-align:center}
+.del{background:none;border:0;color:var(--mut);cursor:pointer}
+@media(max-width:720px){.year{grid-template-columns:repeat(3,1fr)}.lifedays{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
+<nav class="topnav"><div class="wrap"><a href="#plan" data-v="plan">🔥 خطة ١٢ أسبوع</a><a href="#lifetime" data-v="lifetime">♾️ خطة مدى الحياة</a></div></nav>
+<div id="view-plan">
 <header>
 <div class="wrap">
   <h1>خطة <span>١٢ أسبوع</span> للمبتدئ 💪</h1>
@@ -276,6 +307,146 @@ th{color:var(--acc2);font-weight:800}
 
 
 
+</div></div>
+<div id="view-life" hidden>
+<header class="lifehero">
+<div class="wrap">
+  <h1>خطة <span>مدى الحياة</span> ♾️</h1>
+  <p class="sub">بعد الـ١٢ أسبوع، الهدف مو إنك تخسر أكثر. الهدف إنك تحافظ على اللي وصلت له وتظل قوي وصحي طول عمرك. هذي الخطة مرنة وتمشي مع حياتك.</p>
+  <div class="stats">
+    <div class="stat"><b>٣ أيام</b><small>حديد بالأسبوع (الأساس)</small></div>
+    <div class="stat"><b>٨٠٠٠+</b><small>خطوة باليوم</small></div>
+    <div class="stat"><b>١٣٠ جم</b><small>بروتين يوميًا</small></div>
+    <div class="stat"><b>٧–٨ س</b><small>نوم</small></div>
+  </div>
+</div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2>قوانين الالتزام الذهبية</h2>
+  <div class="rules">
+    <div class="rule"><b>١. لا تفوّت مرتين ورا بعض</b><span>فوّت يوم؟ عادي. بس اللي بعده لازم تروح حتى لو ٢٠ دقيقة.</span></div>
+    <div class="rule"><b>٢. أقل تمرين أحسن من لا شيء</b><span>يوم مضغوط؟ سوّ «تمرين الطوارئ» تحت — ٢٠ دقيقة بس.</span></div>
+    <div class="rule"><b>٣. التمرين موعد ثابت</b><span>نفس الأيام ونفس الوقت كل أسبوع، كأنه دوام.</span></div>
+    <div class="rule"><b>٤. قاعدة ٨٠/٢٠ بالأكل</b><span>٨٠٪ أكل نظيف، ٢٠٪ اللي تحبه بدون ذنب.</span></div>
+    <div class="rule"><b>٥. جرس الإنذار: +٢ كجم</b><span>إذا زاد وزنك ٢ كجم عن وزنك المثالي، ارجع ٤ أسابيع للمرحلة ٣ من خطة الـ١٢ أسبوع.</span></div>
+    <div class="rule"><b>٦. كل ٣ شهور اختبار</b><span>سجّل قوتك ووزنك ومقاس بطنك، وشوف تطورك (تحت).</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>جدولك الأسبوعي — اختر حسب أسبوعك</h2>
+  <div class="card">
+    <div class="opts" id="lifeType">
+      <button data-t="busy">😮‍💨 أسبوع مشغول<br><small>يومين</small></button>
+      <button data-t="normal" class="on">🙂 أسبوع عادي<br><small>٣ أيام</small></button>
+      <button data-t="strong">💪 أسبوع نشيط<br><small>٤ أيام</small></button>
+    </div>
+    <div class="blockinfo" id="blockInfo"></div>
+    <div class="days lifedays" id="lifeDays"></div>
+  </div>
+  <div class="card" id="lifeDetail" style="margin-top:14px"></div>
+</section>
+
+<section>
+  <h2>السنة كلها: يتغيّر التركيز كل شهر</h2>
+  <div class="card">
+    <p style="color:var(--mut);margin-bottom:10px">الجسم يتعود، فكل شهر يتغيّر نوع التمرين عشان تستمر النتيجة وما تمل. الموقع يختار لك تلقائيًا حسب الشهر.</p>
+    <div class="year" id="yearGrid"></div>
+    <div class="note" style="margin-top:12px">🛌 <b>أسبوع تخفيف:</b> آخر أسبوع من كل ٣ شهور — نفس التمارين بنص الجولات ووزن أخف. يريّح المفاصل ويرجعك أقوى.</div>
+  </div>
+</section>
+
+<section>
+  <h2>🚨 تمرين الطوارئ (٢٠ دقيقة)</h2>
+  <div class="card" id="emergency"></div>
+</section>
+
+<section>
+  <h2>المواقف اللي تكسر الالتزام — وحلها</h2>
+  <div class="grid2">
+    <div class="card"><b>🌙 رمضان</b>
+      <ul class="l">
+        <li>التمرين بعد الفطور بساعة ونص، أو قبل السحور.</li>
+        <li>خفّف الجولات ٣٠٪ وخلك على نفس الأوزان — الهدف المحافظة.</li>
+        <li>بروتين بالفطور والسحور، وماء كثير بين الوجبتين.</li>
+        <li>انتبه للحلويات والمقليات — هي اللي ترجّع الكرش.</li>
+      </ul></div>
+    <div class="card"><b>✈️ السفر والإجازات</b>
+      <ul class="l">
+        <li>سوّ تمرين الطوارئ بالغرفة يوم ويوم.</li>
+        <li>امشِ كثير — اكتشف المكان على رجلك.</li>
+        <li>وجبة وحدة مفتوحة باليوم، الباقي خفيف.</li>
+        <li>أول يوم ترجع فيه: روح النادي حتى لو تمرين خفيف.</li>
+      </ul></div>
+    <div class="card"><b>🎉 العيد والمناسبات</b>
+      <ul class="l">
+        <li>استمتع، بس ابدأ صحنك بالبروتين والسلطة.</li>
+        <li>اشرب ماء قبل العزيمة.</li>
+        <li>اليوم اللي بعده رجوع طبيعي — بدون تعويض ولا تجويع.</li>
+      </ul></div>
+    <div class="card"><b>🤒 مرض أو إصابة</b>
+      <ul class="l">
+        <li>حرارة أو تعب بالصدر = راحة كاملة.</li>
+        <li>زكام خفيف بالرأس بس = مشي خفيف عادي.</li>
+        <li>إصابة بمكان؟ مرّن الباقي، والمكان المصاب يراجع فيه مختص.</li>
+        <li>بعد الرجوع: أسبوع بنص الوزن، بعدها طبيعي.</li>
+      </ul></div>
+  </div>
+</section>
+
+<section>
+  <h2>الأكل للمحافظة</h2>
+  <div class="grid2">
+    <div class="card">
+      <ul class="l">
+        <li>بعد ما توصل وزنك المثالي، زيد ١٥٠–٢٠٠ سعرة كل أسبوعين لين يثبت الوزن (غالبًا ٢٣٠٠–٢٥٠٠).</li>
+        <li>البروتين يبقى ١٣٠ جم باليوم — هو اللي يحفظ العضل.</li>
+        <li>نص الصحن خضار، دايمًا.</li>
+        <li>وزن نفسك مرة بالأسبوع، نفس اليوم الصبح.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <ul class="l">
+        <li>المشروبات المحلاة تظل الاستثناء مو العادة.</li>
+        <li>الأكل برا: اختار مشوي بدل مقلي، ورز أقل.</li>
+        <li>جعت بالليل؟ زبادي يوناني أو لبن.</li>
+        <li>القهوة والشاي بسكر خفيف أو بدون.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>✅ عاداتي هالأسبوع</h2>
+  <div class="card">
+    <div id="habits"></div>
+    <div class="progress" style="margin-top:10px"><div class="bar"><i id="hbar"></i></div><small id="htxt"></small></div>
+  </div>
+</section>
+
+<section>
+  <h2>📊 اختبار كل ٣ شهور</h2>
+  <div class="card">
+    <p style="color:var(--mut)">سجّل أرقامك كل ٣ شهور وقارن نفسك بنفسك.</p>
+    <form id="testForm" class="tform">
+      <label>التاريخ<input type="date" name="d" required></label>
+      <label>الوزن (كجم)<input type="number" step="0.1" name="w"></label>
+      <label>محيط البطن (سم)<input type="number" step="0.5" name="waist"></label>
+      <label>أقصى ضغط متواصل<input type="number" name="pu"></label>
+      <label>بلانك (ثانية)<input type="number" name="pl"></label>
+      <label>سكوات بدقيقة<input type="number" name="sq"></label>
+      <button class="btn" type="submit">سجّل</button>
+    </form>
+    <div id="testLog"></div>
+  </div>
+</section>
+
+</div>
+</div>
+<div class="wrap">
 <p class="foot">التقدّم يتحفظ على هذا الجهاز والمتصفح فقط.<br>رسومات التمارين: <a href="https://repdb.co" target="_blank" rel="noopener" style="color:var(--acc2)">Exercise data by RepDB (repdb.co)</a></p>
 <div id="toast"></div>
 <div id="zoom" onclick="this.classList.remove('on')"><div class="zin"><div class="zbox"></div><div class="zt"></div><small>اضغط بأي مكان للإغلاق</small></div></div>
@@ -427,6 +598,7 @@ function media(x){
   if(f.length===1)return `<div class="anim" data-n="${x.e[1]}"><img src="${f[0]}" alt="${x.e[0]}" loading="lazy"></div>`;
   return `<div class="anim two" data-n="${x.e[1]}"><img src="${f[0]}" alt="${x.e[0]}" loading="lazy"><img src="${f[1]}" alt="" loading="lazy"></div>`;
 }
+function yt(x){return `<a class="yt" href="https://www.youtube.com/results?search_query=${encodeURIComponent(x.e[1].replace(/ \(.*\)/,"")+" proper form men tutorial")}" target="_blank" rel="noopener">▶ شوف طريقة الأداء بالفيديو</a>`}
 const svg=k=>`<svg viewBox="0 0 60 60" class="pic">${ICON[k]||ICON.stretch}</svg>`;
 
 // [مفتاح, إزاحة]
@@ -531,7 +703,7 @@ function renderDetail(d,gi){
     blocks.forEach(([title,list])=>{
       h+=`<div class="blk">${title}</div>`;
       list.forEach(x=>{n++;
-        h+=`<div class="ex">${media(x)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div></div><div class="sr">${srTxt(x.sr)}</div></div>`});
+        h+=`<div class="ex">${media(x)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div>${yt(x)}</div><div class="sr">${srTxt(x.sr)}</div></div>`});
     });
     h+=`<button class="btn donebtn ${done[gi]?"is":""}" id="mark">${done[gi]?"✓ خلّصته — اضغط للتراجع":"خلّصت تمرين اليوم"}</button>`;
   }
@@ -552,6 +724,96 @@ document.getElementById("goToday").onclick=goToday;
 let rc=0;document.getElementById("reset").onclick=e=>{if(rc===0){rc=1;e.target.textContent="متأكد؟ اضغط مرة ثانية";setTimeout(()=>{rc=0;e.target.textContent="تصفير التقدم"},3000)}else{done={};LS.set("wp_done",done);rc=0;e.target.textContent="تصفير التقدم";render()}};
 const t0=todayIdx();if(t0>=0&&t0<84){selW=Math.floor(t0/7);selD=t0%7}
 render();
+
+// ================= خطة مدى الحياة =================
+const BLOCKS=[
+ {n:"شهر القوة",c:"k0",sets:"4 × 6–8",rest:"دقيقتين",d:"أوزان أثقل وعدّات أقل — تبني قوة حقيقية.",card:"walk"},
+ {n:"شهر العضل",c:"k1",sets:"3 × 8–12",rest:"٦٠–٩٠ ثانية",d:"الحجم المتوسط — يشد الجسم ويبني عضل.",card:"walk"},
+ {n:"شهر اللياقة",c:"k2",sets:"3 × 12–15",rest:"٤٥–٦٠ ثانية",d:"أوزان أخف، راحة أقل، وHIIT — يحرق ويحافظ على الكرش بعيد.",card:"hiit"}
+];
+const MON=["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+let lifeT="normal",lifeD=0;
+function curBlock(){const m=new Date().getMonth();return {i:m%3,m}}
+function lifeWeek(t){
+  const {i,m}=curBlock(),B=BLOCKS[i],w=m,s=B.sets;
+  const ex=(k,o,sr)=>({e:pick(k,w,o),sr:sr||s,k:KI[k],m:k});
+  const cd=(min)=>cardioTxt(min,B.card==="hiit"?"hiit":"walk").map(e=>({e,sr:"كارديو",k:B.card==="hiit"?"bike":"walk"}));
+  const FA={t:"جسم كامل A",ty:"strength",b:[["حديد",[ex("squat",0),ex("chest",0),ex("backV",0),ex("hinge",0),ex("sh",0),ex("core1",0,"3 × 30–45 ث")]],["كارديو",cd(15)]]};
+  const FB={t:"جسم كامل B",ty:"strength",b:[["حديد",[ex("lunge",1,"3 × 10 لكل رجل"),ex("incl",1),ex("backH",1),ex("lcurl",0),ex("lat",0,"3 × 12–15"),ex("core2",1,"3 × 12–15")]],["كارديو",cd(15)]]};
+  const FC={t:"جسم كامل C",ty:"strength",b:[["حديد",[ex("squat",2),ex("push",1,"3 × أقصى عدد"),ex("backV",2),ex("hinge",2),ex("face",0,"3 × 15"),ex("core1",2,"3 × 30–45 ث")]],["كارديو",cd(15)]]};
+  const UP={t:"علوي",ty:"strength",b:[["حديد",[ex("chest",1),ex("backV",1),ex("incl",0),ex("backH",0),ex("sh",1),ex("tri",0,"3 × 12"),ex("bi",0,"3 × 12")]]]};
+  const UP2={t:"علوي (صدر وظهر)",ty:"strength",b:[["حديد",[ex("incl",2),ex("backH",2),ex("fly",0,"3 × 12–15"),ex("backV",2),ex("lat",1,"3 × 15"),ex("face",1,"3 × 15")]]]};
+  const LO={t:"سفلي",ty:"strength",b:[["حديد",[ex("squat",0),ex("hinge",0),ex("lunge",0,"3 × 10 لكل رجل"),ex("lcurl",0),ex("calf",0,"3 × 15"),ex("core2",0,"3 × 12–15")]],["كارديو",cd(15)]]};
+  const LO2={t:"سفلي + بطن",ty:"strength",b:[["حديد",[ex("squat",1),ex("hinge",1),ex("lext",0,"3 × 12–15"),ex("lcurl",1),ex("calf",1,"3 × 15")]],["بطن",[ex("core1",1,"3 × 30–45 ث"),ex("core2",2,"3 × 12")]]]};
+  const WALK={t:"مشي",ty:"cardio",b:[["كارديو",cardioTxt(35,"walk").map(e=>({e,sr:"كارديو",k:"walk"}))]]};
+  const R={t:"راحة",ty:"rest"};
+  if(t==="busy")return [FA,R,R,WALK,FB,R,R];
+  if(t==="strong")return [UP,LO,R,WALK,UP2,LO2,R];
+  return [FA,WALK,FB,R,FC,WALK,R];
+}
+function renderLife(){
+  const {i,m}=curBlock(),B=BLOCKS[i];
+  document.querySelectorAll("#lifeType button").forEach(b=>b.classList.toggle("on",b.dataset.t===lifeT));
+  document.getElementById("blockInfo").innerHTML=`📅 هذا الشهر (${MON[m]}): <b style="color:var(--acc2)">${B.n}</b> — ${B.d}<br>الجولات: <b>${B.sets.replace(/\d/g,d=>AR(d))}</b> عدّة · الراحة: <b>${B.rest}</b>`;
+  const wk=lifeWeek(lifeT);
+  document.getElementById("lifeDays").innerHTML=wk.map((d,j)=>`<div class="day ${d.ty} ${j===lifeD?"sel":""}" data-d="${j}"><div class="n">اليوم ${AR(j+1)}</div><div class="t">${d.t}</div><div class="dot"></div></div>`).join("");
+  const d=wk[lifeD];let h=`<div class="dh"><div><span class="tag ${d.ty}">${TY[d.ty]}</span><h3>${d.t}</h3></div></div>`;
+  if(d.ty==="rest"){h+=`<div class="note">😴 راحة. مشي خفيف عادي وخطواتك اليومية.</div>`}
+  else{
+    const tl=targetLine(d);if(tl)h+=`<div class="note">🎯 ${tl}</div>`;
+    let n=0;[["🔥 إحماء لعضلات اليوم",warm(d,m)],...d.b,["🧘 إطالة لعضلات اليوم",cool(d,m)]].forEach(([title,list])=>{
+      h+=`<div class="blk">${title}</div>`;
+      list.forEach(x=>{n++;h+=`<div class="ex">${media(x)}<div><div class="nm"><span class="num">${AR(n)}</span> ${x.e[0]}</div><div class="en">${x.e[1]}</div><div class="tip">💡 ${x.e[2]}</div>${yt(x)}</div><div class="sr">${srTxt(x.sr)}</div></div>`});
+    });
+  }
+  const el=document.getElementById("lifeDetail");el.innerHTML=h;bindZoom(el);
+  // year
+  document.getElementById("yearGrid").innerHTML=MON.map((mn,k)=>`<div class="mo ${BLOCKS[k%3].c} ${k===m?"now":""}"><b>${mn}</b>${BLOCKS[k%3].n}${k%3===2?"<br><small style='color:var(--mut)'>+ أسبوع تخفيف</small>":""}</div>`).join("");
+}
+function bindZoom(el){el.querySelectorAll(".anim").forEach(a=>a.onclick=()=>{const z=document.getElementById("zoom");z.querySelector(".zbox").innerHTML=a.outerHTML;z.querySelector(".zt").textContent=a.closest(".ex").querySelector(".nm").textContent.replace(/^\S+\s/,"");z.classList.add("on")})}
+document.getElementById("lifeType").onclick=e=>{const b=e.target.closest("button");if(b){lifeT=b.dataset.t;lifeD=0;LS.set("wp_lifeT",lifeT);renderLife()}};
+document.getElementById("lifeDays").onclick=e=>{const b=e.target.closest(".day");if(b){lifeD=+b.dataset.d;renderLife()}};
+lifeT=LS.get("wp_lifeT","normal");
+
+// emergency
+(function(){
+  const L=[["سكوات بوزن الجسم","Bodyweight Squat","نزول كامل وظهر مستقيم","٢٠ مرة","squat"],["ضغط (أو على الركب)","Push-ups","الجسم خط مستقيم","أقصى عدد","push"],["لنجز بدون وزن","Bodyweight Lunges","خطوة واسعة","١٠ لكل رجل","lunge"],["جسر الحوض","Glute Bridge","عصّر المؤخرة فوق","١٥ مرة","legraise"],["بلانك","Plank","البطن مشدود","٤٥ ث","plank"],["ماونتن كلايمبر","Mountain Climbers","سرعة متوسطة","٣٠ ث","legraise"]];
+  let h=`<div class="note">بدون أجهزة، بالبيت أو الفندق. سوّ الحركات ورا بعض، ارتاح دقيقة، وكررها <b>٤ مرات</b>.</div>`;
+  L.forEach((x,i)=>{const o={e:[x[0],x[1],x[2]],sr:x[3],k:x[4]};h+=`<div class="ex">${media(o)}<div><div class="nm"><span class="num">${AR(i+1)}</span> ${x[0]}</div><div class="en">${x[1]}</div><div class="tip">💡 ${x[2]}</div>${yt(o)}</div><div class="sr"><b>${x[3]}</b></div></div>`});
+  const el=document.getElementById("emergency");el.innerHTML=h;bindZoom(el);
+})();
+
+// habits (reset weekly)
+const HAB=["٣ تمارين حديد (أو ٢ بالأسبوع المشغول)","٨٠٠٠ خطوة على الأقل ٥ أيام","بروتين بكل وجبة","نوم ٧ ساعات أغلب الليالي","ماء ٢.٥ لتر يوميًا","ما فوّت يومين ورا بعض","وزنت نفسي مرة هالأسبوع"];
+function wkKey(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-d.getDay());return "wp_hab_"+d.toISOString().slice(0,10)}
+function renderHabits(){
+  const st=LS.get(wkKey(),{});
+  document.getElementById("habits").innerHTML=HAB.map((t,i)=>`<label class="hb"><input type="checkbox" data-i="${i}" ${st[i]?"checked":""}><span>${t}</span></label>`).join("");
+  const c=HAB.filter((_,i)=>st[i]).length;document.getElementById("hbar").style.width=(c/HAB.length*100)+"%";
+  document.getElementById("htxt").textContent=`${AR(c)} من ${AR(HAB.length)} — تتصفّر كل أحد`;
+}
+document.getElementById("habits").onchange=e=>{const st=LS.get(wkKey(),{});st[e.target.dataset.i]=e.target.checked;LS.set(wkKey(),st);renderHabits()};
+
+// tests
+function renderTests(){
+  const T=LS.get("wp_tests",[]).sort((a,b)=>a.d<b.d?-1:1);
+  if(!T.length){document.getElementById("testLog").innerHTML=`<div class="note">ما فيه تسجيلات للحين. أول تسجيل يكون آخر يوم في خطة الـ١٢ أسبوع.</div>`;return}
+  const f=v=>v===""||v==null?"—":AR(v);
+  document.getElementById("testLog").innerHTML=`<table class="tlog"><tr><th>التاريخ</th><th>الوزن</th><th>البطن</th><th>ضغط</th><th>بلانك</th><th>سكوات</th><th></th></tr>`+T.map((t,i)=>`<tr><td>${f(t.d)}</td><td>${f(t.w)}</td><td>${f(t.waist)}</td><td>${f(t.pu)}</td><td>${f(t.pl)}</td><td>${f(t.sq)}</td><td><button class="del" data-d="${t.d}">✕</button></td></tr>`).join("")+`</table>`;
+}
+document.getElementById("testForm").onsubmit=e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));const T=LS.get("wp_tests",[]).filter(t=>t.d!==fd.d);T.push(fd);LS.set("wp_tests",T);e.target.reset();renderTests()};
+document.getElementById("testLog").onclick=e=>{const b=e.target.closest(".del");if(b){LS.set("wp_tests",LS.get("wp_tests",[]).filter(t=>t.d!==b.dataset.d));renderTests()}};
+
+// routing
+function route(){
+  const life=location.hash==="#lifetime";
+  document.getElementById("view-plan").hidden=life;document.getElementById("view-life").hidden=!life;
+  document.querySelectorAll(".topnav a").forEach(a=>a.classList.toggle("on",a.dataset.v===(life?"lifetime":"plan")));
+  if(life){renderLife();renderHabits();renderTests()}
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);route();
+
 </script>
 </body>
 </html>
