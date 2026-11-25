@@ -586,11 +586,19 @@ const LOVE=[
  ["سمعت إن فيه بطل خلّص تمرينه… والأبطال يستاهلون أحلى كبسة بالدنيا 🍛 بس لازم يطلبها هو، وبعدين أفكر 🙈😌","قلبي",1],
  ["ما راح أقول إني أستناك… بس القهوة جاهزة، والباب مفتوح، وأنا… عادي 😌🤍","العمر كله"]
 ];
+// رسائل خاصة بيوم معيّن: رقم اليوم في الخطة (١–٨٤) ← [الرسالة، التوقيع]
+const DAYMSG={
+ 3:['مبروك التمرين… ترى فيه تمرين ثاني اسمه "راضِ زوجتك"، جولة وحدة بس بضمير 😌',""]
+};
 let loveI=+LS0("wp_love",0);
 function love(){
-  const t=document.getElementById("toast");const [msg,sig,kabsa]=LOVE[loveI%LOVE.length];
+  const m=LOVE[loveI%LOVE.length];
   loveI++;try{localStorage.setItem("wp_love",loveI)}catch(e){}
-  t.innerHTML=`<div class="tm">${msg}</div><div class="ts">— ${sig}</div>${kabsa?'<a class="kb" href="https://wa.me/?text='+encodeURIComponent("أبي كبسة 😋🍛")+'" target="_blank" rel="noopener">🍛 اطلبها: أبي كبسة</a>':""}<button class="tx" aria-label="إغلاق">✕</button>`;
+  showMsg(m);
+}
+function showMsg([msg,sig,kabsa]){
+  const t=document.getElementById("toast");
+  t.innerHTML=`<div class="tm">${msg}</div>${sig?`<div class="ts">— ${sig}</div>`:""}${kabsa?'<a class="kb" href="https://wa.me/?text='+encodeURIComponent("أبي كبسة 😋🍛")+'" target="_blank" rel="noopener">🍛 اطلبها: أبي كبسة</a>':""}<button class="tx" aria-label="إغلاق">✕</button>`;
   t.classList.add("on");t.querySelector(".tx").onclick=()=>t.classList.remove("on");
 }
 function dedupe(a){const s=new Set();return a.filter(x=>!s.has(x.e[1])&&s.add(x.e[1]))}
@@ -764,7 +772,7 @@ function renderDetail(d,gi){
   const el=document.getElementById("detail");el.innerHTML=h;
   el.querySelectorAll(".anim").forEach(a=>a.onclick=()=>{const m=document.getElementById("zoom");m.querySelector(".zbox").innerHTML=a.outerHTML;m.querySelector(".zt").textContent=a.closest(".ex").querySelector(".nm").textContent.replace(/^\S+\s/,"");m.classList.add("on")});
   const m=document.getElementById("mark");
-  if(m)m.onclick=()=>{const was=done[gi];was?delete done[gi]:done[gi]=1;LS.set("wp_done",done);render()};
+  if(m)m.onclick=()=>{const was=done[gi];was?delete done[gi]:done[gi]=1;LS.set("wp_done",done);render();document.getElementById("toast").classList.remove("on");if(!was&&DAYMSG[gi+1])showMsg(DAYMSG[gi+1])};
 }
 
 function goToday(){const t=todayIdx();if(t>=0&&t<84){selW=Math.floor(t/7);selD=t%7}else{selW=0;selD=0}render();document.getElementById("days").scrollIntoView({behavior:"smooth",block:"center"})}
